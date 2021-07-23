@@ -12,28 +12,33 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%# Add bootstrap class to forms%>
+    <%= form.label :title, class: "form-label mr-1" %> 
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%# Add bootstrap class to forms%>
+    <%= form.label :description, class: "form-label mr-1" %>
+    <%= form.text_area :description, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%# Add bootstrap class to forms%>
+    <%= form.label :price, class: "form-label mr-1" %>
+    <%= form.text_field :price, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :availability %>
-    <%= form.check_box :availability %>
+    <%# Add bootstrap class to forms%>
+    <%= form.label :availability, class: "form-label mr-1" %>
+    <%= form.check_box :availability, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :condition %>
-    <%= form.number_field :condition %>
+    <%# Add bootstrap class to forms%>
+    <%= form.label :condition, class: "form-label mr-1" %>
+    <%= form.number_field :condition, class: "form-control" %>
   </div>
 
   <div class="field">
