@@ -67,6 +67,8 @@ class ListingsController < ApplicationController
     def setup_form
       #Get all categories
       @categories = Category.all
+      #Get all conditions keys
+      @conditions = Listing.conditions.keys
     end
 
     # Only allow a list of trusted parameters through.
