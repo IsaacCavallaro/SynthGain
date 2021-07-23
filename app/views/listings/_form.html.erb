@@ -54,6 +54,15 @@
     <%= form.select :category_id, @categories.map {|category| [category.title, category.id]} %>
   </div>
 
+  <h5>Features</h5>
+  <%# Add bootstrap class to make the form inline %>
+  <div class="form-check form-check-line">
+    <%= form.collection_check_boxes :feature_ids, features, :id, :title do |feature| %>
+      <%= feature.label(class: "form-check-label") %>
+      <%= feature.check_box(class: "form-check mr-2") %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
