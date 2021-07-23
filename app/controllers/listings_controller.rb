@@ -1,5 +1,7 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy ]
+  #Set before action for setup_form private method only for the new and edit actions
+  before_action :setup_form, only: [:new, :edit]
 
   # GET /listings or /listings.json
   def index
@@ -60,6 +62,11 @@ class ListingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
       @listing = Listing.find(params[:id])
+    end
+
+    def setup_form
+      #Get all categories
+      @categories = Category.all
     end
 
     # Only allow a list of trusted parameters through.
