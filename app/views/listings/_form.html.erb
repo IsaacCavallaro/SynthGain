@@ -35,10 +35,17 @@
     <%= form.check_box :availability, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%# Add bootstrap class to forms%>
-    <%= form.label :condition, class: "form-label mr-1" %>
-    <%= form.number_field :condition, class: "form-control" %>
+  <%# Add bootstrap class with margin bottom of 3 %>
+  <h5 class=mb-3>Condition</h5>
+  <%# Add bootstrap class to make the form inline with margin bottom of 3 %>
+  <div class="form-check form-check-line mb-3">
+  <%# iterate through conditions %>
+    <% @conditions.each do |option| %>
+  <%# Add bootstrap class with margin right of 2 %>
+      <%= form.radio_button :condition, option, class: "mr-2" %>
+  <%# Add bootstrap class with margin right of 3 %>
+      <%= form.label :condition, option, class: "form-label mr-3" %>
+    <% end%>
   </div>
 
   <div class="field">
