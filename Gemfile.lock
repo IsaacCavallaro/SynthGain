@@ -210,7 +210,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
-  devise (~> 4.8)
+  devise
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
