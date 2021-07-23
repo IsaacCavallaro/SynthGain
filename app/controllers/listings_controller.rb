@@ -1,4 +1,6 @@
 class ListingsController < ApplicationController
+  #Set before action to authenticate_user before accessing the form
+  before_action :authenticate_user!
   before_action :set_listing, only: %i[ show edit update destroy ]
   #Set before action for setup_form private method only for the new and edit actions
   before_action :setup_form, only: [:new, :edit]
