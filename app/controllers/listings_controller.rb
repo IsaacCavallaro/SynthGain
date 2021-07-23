@@ -69,6 +69,8 @@ class ListingsController < ApplicationController
       @categories = Category.all
       #Get all conditions keys
       @conditions = Listing.conditions.keys
+      #Get all features
+      @features = Feature.all
     end
 
     # Only allow a list of trusted parameters through.
