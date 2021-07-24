@@ -68,6 +68,11 @@ class ListingsController < ApplicationController
       @listing = Listing.find(params[:id])
     end
 
+    # Connect user id with listing
+    def set_user_listing
+      @listing = current_user.listings.find_by_id(params[:id])
+    end
+
     def setup_form
       #Get all categories
       @categories = Category.all
