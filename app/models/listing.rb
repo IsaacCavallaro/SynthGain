@@ -13,4 +13,7 @@ class Listing < ApplicationRecord
 
   #Checkboxes 
   accepts_nested_attributes_for :feature_listings
+
+  #Add picture to listing
+  has_one_attached :picture
 end
