@@ -76,6 +76,8 @@ class ListingsController < ApplicationController
     # Connect user id with listing
     def set_user_listing
       @listing = current_user.listings.find_by_id(params[:id])
+      flash[:alert] = "Access denied"
+      redirect_to listings_path
     end
 
     def setup_form
