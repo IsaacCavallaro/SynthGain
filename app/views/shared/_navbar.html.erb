@@ -1,0 +1,4 @@
+<%# Use devise to check if user is signed in%>
+<% if user_signed_in? %>
+<%# if signed in, add a link to sign out %>
+<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
