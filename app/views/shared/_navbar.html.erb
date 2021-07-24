@@ -1,9 +1,11 @@
 <%# Use devise to check if user is signed in%>
 <% if user_signed_in? %>
     <%# if signed in, add a link to sign out %>
-    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+    <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm" %>
 
 <% else %>
     <%# if user not signed in, add a link to sign in and sign up %>
     <%= link_to "Login", new_user_session_path %>
     <%= link_to "Sign Up", new_user_registration_path %>
+
+<% end %>
