@@ -12,11 +12,11 @@
 
   <body>
     <%# bootstrap alert %>
-    <% flash.each do |k,v|  %>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <%= v %>
-      
-    </div>
+    <body>
+    <% flash.each do |type,message|  %>
+      <div class="alert alert-<%= select_alert_type(type) %> >
+        <%= message %>
+      </div>
     <% end %>
 
     <%# render navbar partial from shared folder %>
