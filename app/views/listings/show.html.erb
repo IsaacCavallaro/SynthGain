@@ -11,7 +11,7 @@
         <span class='badge bg-info text-dark'><%=feature.title%></span>
       <%end%>
       <p class='blockquote mt-2'><%=@listing.description%></p>
-      <button data-stripe='payment' class='btn btn-primary p3'>Buy Now</button>
+      <%= render_buy_button %>
     </div>
 
     <div class='container'>
