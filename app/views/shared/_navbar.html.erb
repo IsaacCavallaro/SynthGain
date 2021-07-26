@@ -6,6 +6,10 @@
                 <%= link_to "View Listings", listings_path, class: "nav-link" %>
             </li>
 
+            <li class="navbar-item mr-5-lg">
+                <%= link_to "About SynthGain", pages_about_path, class: "nav-link" %>
+            </li>
+
             <% if user_signed_in? %>
                 <li class="navbar-item mr-5-lg">
                     <%= link_to "Create Listing", new_listing_path, class: "nav-link" %>

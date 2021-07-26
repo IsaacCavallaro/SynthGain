@@ -13,11 +13,7 @@
   <body>
     <%# bootstrap alert %>
     <body>
-    <% flash.each do |type,message|  %>
-      <div class="alert alert-<%= select_alert_type(type) %> >
-        <%= message %>
-      </div>
-    <% end %>
+  
 
     <%# render navbar partial from shared folder %>
     <%= render "shared/navbar" %>
