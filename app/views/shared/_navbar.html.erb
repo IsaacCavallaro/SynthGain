@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand sticky-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand sticky-top navbar-light bg-light">
     <div class="container-fluid">
         <%= link_to "SynthGain", root_path, class: "navbar-brand" %>
         <ul class="navbar-nav">
@@ -16,6 +16,10 @@
                 </li>
                 <li class="navbar-item mr-5-lg">
                     <%= button_to "Sign Out", destroy_user_session_path, method: "delete", class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pages/cart">🛒</a>
+                    <%= link_to "", pages_cart_path, class: "nav-link" %>
                 </li>
             <% else %>
                 <li class="navbar-item mr-5-lg">

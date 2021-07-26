@@ -3,5 +3,5 @@
 <p> Thanks for purchasing the <%= @listing.title %> </p>
 
 <p>Here is your receipt:</p>
-<%= link_to "Receipt", @purchase.receipt_url, target: :_blank, class: "btn btn-success mt-1" %>
+<%= link_to "Receipt", @payments.receipt_url, target: :_blank, class: "btn btn-success mt-1" %>
 <%= link_to 'Back to Listings', listings_path, class: "btn btn-outline-secondary m-1" %> 

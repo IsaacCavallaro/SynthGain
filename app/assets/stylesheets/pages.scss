@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+
+.bgimage h5 {
+  color:white;
+  text-shadow:2px 2px #333;
+  text-align: center;
+  font-size: 80px;   
+}
+
+
 .bgimage {
   width: 100%;
   height: 100%;
@@ -16,19 +25,17 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  opacity: 0.9;
   }
 
-  .bgimage h5 {
-    color:white;
-    text-shadow:2px 2px #333;
-    text-align: center;
-    font-size: 50px;
-    margin-top: 30%;
-    border: 5px solid black;
-    
-  }
+
 
 .bgimage p {
     color:white;
-    border: 1px solid black;
 }
+
+.home-image{
+    width: 80%;
+    height: 80%;
+}
+

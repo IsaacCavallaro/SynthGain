@@ -10,13 +10,13 @@ class PaymentsController < ApplicationController
 
     receipt_url = payment.charges.data[0].receipt_url
 
-    Order.create(user_id: buyer_id, listing_id: listing_id, payment_intent_id: payment_intent_id, receipt_url: receipt_url)
+    Cart.create(user_id: buyer_id, listing_id: listing_id, payment_intent_id: payment_intent_id, receipt_url: receipt_url)
   end
 
   def success
     listing_id = params[:listingId]
     @listing = Listing.find(listing_id)
-    @purchase = Order.find_by_listing_id(listing_id)
+    @purchase = Cart.find_by_listing_id(listing_id)
   end
 
 end
