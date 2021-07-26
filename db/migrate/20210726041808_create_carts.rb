@@ -1,8 +1,6 @@
-class CreateOrders < ActiveRecord::Migration[6.1]
+class CreateCarts < ActiveRecord::Migration[6.1]
   def change
-    create_table :orders do |t|
-      t.text :description
-      t.float :price
+    create_table :carts do |t|
       t.references :user, null: false, foreign_key: true
       t.references :listing, null: false, foreign_key: true
 
