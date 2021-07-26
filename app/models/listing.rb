@@ -16,4 +16,14 @@ class Listing < ApplicationRecord
 
   #Add picture to listing
   has_one_attached :picture
+
+  #data santisation
+  before_save :remove_whitespace
+
+  private 
+
+  def remove_whitespace
+    self.title = self.title.strip
+    self.description = self.description.strip
+  end
 end
