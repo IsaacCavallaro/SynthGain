@@ -40,7 +40,7 @@ class ListingsController < ApplicationController
         }
       },
       mode: 'payment',
-      success_url: "#{root_url}",
+      success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
       cancel_url: "#{root_url}listings"
     )
 
