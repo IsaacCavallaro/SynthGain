@@ -38,3 +38,5 @@ end
 if User.count == 0 
     User.create(email: "test@test.com", password: "testing", password_confirmation: "testing")
 end
+
+
