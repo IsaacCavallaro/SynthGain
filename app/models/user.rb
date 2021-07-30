@@ -6,4 +6,9 @@ class User < ApplicationRecord
 
   # Set a user to have many listings
   has_many :listings
+  # belongs_to :cart
+
+  has_one :user_info
+
+  # accepts_nested_attributes_for :user_info
 end

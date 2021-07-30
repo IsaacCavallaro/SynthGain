@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'users_info/index'
+  get 'users_info/show'
+  get 'users_info/create'
+  get 'users_info/edit'
+  get 'users_info/destroy'
   get 'payments/webhook'
   devise_for :users
   root to: 'pages#home'
@@ -7,5 +12,5 @@ Rails.application.routes.draw do
   resources :listings
   post '/payments/webhook', to: 'payments#webhook'
   get 'payments/success', to: 'payments#success'
-  get 'pages/cart', to: 'pages#cart'
+  resources :carts
 end

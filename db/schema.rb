@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_135450) do
+ActiveRecord::Schema.define(version: 2021_07_30_092013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,17 @@ ActiveRecord::Schema.define(version: 2021_07_27_135450) do
     t.index ["carts_id"], name: "index_payments_on_carts_id"
   end
 
+  create_table "user_infos", force: :cascade do |t|
+    t.string "country"
+    t.string "city"
+    t.string "street"
+    t.integer "postcode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_user_infos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -138,4 +149,5 @@ ActiveRecord::Schema.define(version: 2021_07_27_135450) do
   add_foreign_key "listings", "categories"
   add_foreign_key "listings", "users"
   add_foreign_key "payments", "carts", column: "carts_id"
+  add_foreign_key "user_infos", "users"
 end
