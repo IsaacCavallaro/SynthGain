@@ -53,3 +53,5 @@ gem 'devise'
 gem "aws-sdk-s3", "~> 1.96"
 
 gem "stripe", "~> 5.37"
+
+gem 'simple_form'
