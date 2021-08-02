@@ -3,6 +3,7 @@
 <div class="d-flex justify-content-center">
   <div class="card mb-3" style="width: 40rem;">
     <div class="card-body">
+    <%= image_tag @user_info.picture, class: "card-img-top" if @user_info.picture.attached? %>
       <h1 class='card-title'><%=@current_user.id%></h1>
       <p class="card-text">Country: <%= @user_info.country %></p>
       <p class="card-text">City: <%= @user_info.city%></p>  

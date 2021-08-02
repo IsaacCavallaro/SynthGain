@@ -30,6 +30,6 @@ class UsersInfoController < ApplicationController
   end
 
   def user_info_params
-    params.require(:user_info).permit(:country, :city, :street, :postcode)
+    params.require(:user_info).permit(:country, :city, :street, :postcode, :picture)
   end
 end
