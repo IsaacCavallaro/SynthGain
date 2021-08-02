@@ -1,2 +1,23 @@
-<h1>UsersInfo#edit</h1>
-<p>Find me in app/views/users_info/edit.html.erb</p>
+<h1>Edit user profile</h1>
+<%= simple_form_for(@user_info, :url => users_info_update_path, :method => :post ) do |user_info_form| %>
+
+    <h2><%= user_info_form.label :country, class: "form-label mr-1"  %></h2>
+    <p><%= user_info_form.text_field :country, class: "form-control" %></p>
+
+    <h2><%= user_info_form.label :city, class: "form-label mr-1" %></h2>
+    <p><%= user_info_form.text_field :city, class: "form-control" %></p>
+
+    <h2><%= user_info_form.label :street, class: "form-label mr-1" %></h2>
+    <p><%= user_info_form.text_field :street, class: "form-control" %></p>
+
+    <h2><%= user_info_form.label :postcode, class: "form-label mr-1" %></h2>
+    <p><%= user_info_form.text_field :postcode, class: "form-control" %></p>
+
+    <h2><%= user_info_form.label :picture, class: "form-label mr-1" %></h2>
+    <p><%= user_info_form.file_field :picture, accepts: "image/png,image/jpg,image/jpeg", class: "form-control" %></p>
+    <br/>
+      <small class='form-text text-muted'>PNG, JPG and JPEG only</small>
+      
+    <%= user_info_form.submit "Submit" %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<% end %>

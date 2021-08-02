@@ -1,3 +1,4 @@
 class Payment < ApplicationRecord
-  belongs_to :Cart
+  # belongs_to :Cart
+  
 end

@@ -24,6 +24,15 @@ class UsersInfoController < ApplicationController
   end
 
   def edit
+    @user_info = UserInfo.find_by(user_id:current_user.id)
+  end
+
+  def update
+    @user_info = UserInfo.find_by(user_id:current_user.id)
+    p "-------------------------------"
+    p @user_info
+    @user_info = @user_info.update(user_info_params)
+    redirect_to users_info_path
   end
 
   def destroy
