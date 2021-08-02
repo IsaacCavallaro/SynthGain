@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get 'users_info/index'
+  get 'users_info/index', to: 'users_info#index', as: 'users_info'
   get 'users_info/show'
   get 'users_info/create'
-  get 'users_info/edit'
+  post 'users_info/create', to: 'users_info#create', as: 'users_info_create_post'
+  get 'users_info/edit', to: 'users_info#edit', as: 'users_info_edit'
+  post 'users_info/update', to: 'users_info#update', as: 'users_info_update'
   get 'users_info/destroy'
+  get 'users_info/new/:id', to: 'users_info#new', as: 'users_info_new'
   get 'payments/webhook'
   devise_for :users
   root to: 'pages#home'

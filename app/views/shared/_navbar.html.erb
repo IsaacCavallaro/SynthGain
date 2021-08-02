@@ -10,7 +10,22 @@
                 <%= link_to "About SynthGain", pages_about_path, class: "nav-link" %>
             </li>
 
-            <% if user_signed_in? %>
+            <% if user_signed_in? && current_user.user_info %>
+                <li class="navbar-item mr-5-lg">
+                    <%= link_to "Profile", users_info_path, class: "nav-link" %>
+                </li>
+                <li class="navbar-item mr-5-lg">
+                    <%= link_to "Create Listing", new_listing_path, class: "nav-link" %>
+                </li>
+                <li class="navbar-item mr-5-lg">
+                    <%= button_to "Sign Out", destroy_user_session_path, method: "delete", class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pages/cart">🛒</a>
+                    <%= link_to "", carts_path, class: "nav-link" %>
+                </li>
+
+            <% elsif user_signed_in? %>
                 <li class="navbar-item mr-5-lg">
                     <%= link_to "Create Listing", new_listing_path, class: "nav-link" %>
                 </li>
@@ -32,3 +47,4 @@
         </ul>
     </div>
 </nav>
+

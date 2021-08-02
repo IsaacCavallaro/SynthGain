@@ -1,5 +1,4 @@
-<h1>Edit user profile</h1>
-<%= simple_form_for(@user_info, :url => users_info_update_path, :method => :post ) do |user_info_form| %>
+<%= simple_form_for(@user_info, :url => users_info_create_post_path, :method => :post ) do |user_info_form| %>
 
     <h2><%= user_info_form.label :country, class: "form-label mr-1"  %></h2>
     <p><%= user_info_form.text_field :country, class: "form-control" %></p>
