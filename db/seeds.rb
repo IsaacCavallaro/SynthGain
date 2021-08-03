@@ -1,10 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 
 #Set the categories for the category entity
 categories = ["Polyphonic", "Monophonic", "Modular"]
@@ -34,12 +28,67 @@ if Feature.count == 0
     end
 end
 
-#Seed database with user if the count is 0
+#Seed database with 3 users if the count is 0
 if User.count == 0 
-    User.create(email: "test@test.com", password: "testing", password_confirmation: "testing")
+    ########### Create user 1 ###############
+    User.create!(email: "test@test.com", password: "testing", password_confirmation: "testing")
+    
+    ########### Create user 1 profile ###############
+    userinfo1 = UserInfo.create!(country: "test", city: "test", street: "test", postcode: "1111", user_id: 1)
+    
+    ########### Create user 1 profile image ###############
+        userinfo1.picture.attach(
+                io: File.open("app/assets/images/user1picture.jpg"),
+                filename: "user1picture.jpg",
+                content_type: "image/jpg")
+
+
+    ########### Create user 2 ###############
+    User.create!(email: "mrtest@test.com", password: "testing", password_confirmation: "testing")
+    
+    ########### Create user 2 profile ###############
+    userinfo2 = UserInfo.create!(country: "mrtest", city: "mrtest", street: "test", postcode: "2222", user_id: 2)
+
+    ########### Create user 2 profile image ###############
+    userinfo2.picture.attach(
+        io: File.open("app/assets/images/user2picture.jpg"),
+        filename: "user2picture.jpg",
+        content_type: "image/jpg")
+
+    ########### Create user 3 ###############
+    User.create!(email: "mrstest@test.com", password: "testing", password_confirmation: "testing")
+    
+    ########### Create user 3 profile ###############
+    userinfo2 = UserInfo.create!(country: "mrstest", city: "mrstest", street: "test", postcode: "3333", user_id: 3)
+
+    ########### Create user 3 profile image ###############
+    userinfo2.picture.attach(
+        io: File.open("app/assets/images/user3picture.jpg"),
+        filename: "user2picture.jpg",
+        content_type: "image/jpg")
+
 end
 
 
+########### Create listings ###############
+
+listing1 = Listing.create!(
+    title: "Synth",
+    description: "Listing 1 synth",
+    price: 1.00,
+    condition: 1,
+    category_id: 1,
+    user_id: 1)
+
+    listing1.picture.attach(
+        io: File.open("app/assets/images/testsythn2.jpg"),
+        filename: "testsythn2.jpg",
+        content_type: "image/jpg")
 
 
-
+        # 10.times do
+        #     User.create!(
+        #           email: Faker::Internet.email,
+        #           password: "123456"
+        #        )
+        # end
