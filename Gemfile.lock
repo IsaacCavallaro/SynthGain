@@ -238,7 +238,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   devise
-  faker (~> 2.18)
+  faker
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
