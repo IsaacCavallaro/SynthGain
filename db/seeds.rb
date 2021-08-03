@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'faker'
+
 #Set the categories for the category entity
 categories = ["Polyphonic", "Monophonic", "Modular"]
 
@@ -36,10 +38,22 @@ end
 
 #Seed database with user if the count is 0
 if User.count == 0 
-    User.create(email: "test@test.com", password: "testing", password_confirmation: "testing")
+    # User.create(email: "test@test.com", password: "testing", password_confirmation: "testing")
+    10.times do
+        User.create!(
+              email: Faker::User.email,
+              password: "123456"
+           )
+    end
 end
 
-
-
-
-
+#Seed database with user if the count is 0
+if Listing.count == 0 
+    Listing.create!(title: "synth", description: "testing", price: "testing", availability: true, condition: 1, )
+    10.times do
+        Listing.create!(
+              email: Faker::Listing.email,
+              password: "123456"
+           )
+    end
+end
