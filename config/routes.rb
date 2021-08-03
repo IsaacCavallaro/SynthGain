@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'buyers/index'
+  get 'buyers/index', to: 'buyers#index', as: 'buyers'
   get 'buyers/show'
   get 'buyers/edit'
   get 'buyers/delete'

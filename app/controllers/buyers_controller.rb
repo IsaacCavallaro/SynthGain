@@ -1,5 +1,7 @@
 class BuyersController < ApplicationController
   def index
+    @listings = Listing.all
+    p @listings
   end
 
   def show
