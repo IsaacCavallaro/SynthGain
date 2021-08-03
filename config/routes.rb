@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'buyers/index'
+  get 'buyers/show'
+  get 'buyers/edit'
+  get 'buyers/delete'
   get 'users_info/index', to: 'users_info#index', as: 'users_info'
   get 'users_info/show'
   get 'users_info/create'
