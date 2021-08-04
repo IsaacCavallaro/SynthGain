@@ -2,7 +2,8 @@
   <div class="card mb-3" style="width: 40rem;">
     <%= image_tag @listing.picture, class: "card-img-top" if @listing.picture.attached? %>
     <div class="card-body">
-      <h1 class='card-title'><%=@listing.title%></h1>
+      <h1 class='card-title'><%= @listing.title%></h1>
+      <p class="card-text"> <%= link_to "Seller: #{@listing.user.email}", users_info_show_profile_path(@listing.user.id)%> </p>
       <p class="card-text">Condition: <%=@listing.condition %></p>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       <p><% @listing.features.each do |feature| %>
@@ -14,8 +15,10 @@
 </div>
 
 <div class="d-flex justify-content-center">
-<p><%= render_buy_button %></p>
-  <p><%=link_to "Add to Cart", carts_path(@listing.id), class: "btn btn-primary" %>
+<%# Additional logic for render_buy_button is located the in listings_helper method %>
+<%# Don't display buy button if the listing was created by the current user %>
+<p><%= render_buy_button if current_user && current_user.id != @listing.user_id %></p>
+<%# Don't display edit or delete buttons if the listing was NOT created by the current user %>
   <p><%=link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-warning" if current_user && current_user.id == @listing.user_id%></p>
   <p><%=link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"} , class: "btn btn-danger mr-3" if current_user && current_user.id == @listing.user_id%></p>
 </div>

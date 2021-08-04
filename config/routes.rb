@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  get 'buyers/index', to: 'buyers#index', as: 'buyers'
+  get 'buyers/show'
+  get 'buyers/edit'
+  get 'buyers/delete'
   get 'users_info/index', to: 'users_info#index', as: 'users_info'
-  get 'users_info/show'
+  get 'users_info/show/:id', to: 'users_info#show', as: 'users_info_show_profile'
   get 'users_info/create'
   post 'users_info/create', to: 'users_info#create', as: 'users_info_create_post'
   get 'users_info/edit', to: 'users_info#edit', as: 'users_info_edit'

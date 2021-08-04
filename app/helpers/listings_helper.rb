@@ -24,4 +24,5 @@ module ListingsHelper
             # return true
         end
     end
+
 end
