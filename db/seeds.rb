@@ -114,11 +114,3 @@ listing2 = Listing.create!(
         filename: "testsythn3.jpg",
         content_type: "image/jpg")
 
-
-
-        # 10.times do
-        #     User.create!(
-        #           email: Faker::Internet.email,
-        #           password: "123456"
-        #        )
-        # end
