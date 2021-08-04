@@ -6,6 +6,10 @@ class UsersInfoController < ApplicationController
   end
 
   def show
+    # @user_info = UserInfo.find_by(user_id:params[:id])
+    @user_info = UserInfo.find(params[:id])
+    p @user_info
+    p "-------------------------------"
   end
 
   def new

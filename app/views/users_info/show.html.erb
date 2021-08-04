@@ -1,2 +1,15 @@
-<h1>UsersInfo#show</h1>
-<p>Find me in app/views/users_info/show.html.erb</p>
+<h1> Seller Profile Page</h1>
+
+<div class="d-flex justify-content-center">
+  <div class="card mb-3" style="width: 40rem;">
+    <div class="card-body">
+    <%= image_tag @user_info.picture, class: "card-img-top" if @user_info.picture.attached? %> 
+      <h1 class='card-title'><%=   %></h1>
+      <p class="card-text">Country: <%= @user_info.country %></p>
+      <p class="card-text">City: <%= @user_info.city%></p>  
+      <%# <p class="card-text">Street: <%= @user_info.street%></p> 
+      <%# <p class="card-text">Postcode: <%= @user_info.postcode%></p> 
+    </div>
+  </div>
+</div>
+
