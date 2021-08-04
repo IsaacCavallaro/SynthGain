@@ -34,7 +34,7 @@ if User.count == 0
     User.create!(email: "test@test.com", password: "testing", password_confirmation: "testing")
     
     ########### Create user 1 profile ###############
-    userinfo1 = UserInfo.create!(country: "test", city: "test", street: "test", postcode: "1111", user_id: 1)
+    userinfo1 = UserInfo.create!(country: "Australia", city: "Brisbane", street: "Zigzag", postcode: "1111", user_id: 1)
     
     ########### Create user 1 profile image ###############
         userinfo1.picture.attach(
@@ -47,7 +47,7 @@ if User.count == 0
     User.create!(email: "mrtest@test.com", password: "testing", password_confirmation: "testing")
     
     ########### Create user 2 profile ###############
-    userinfo2 = UserInfo.create!(country: "mrtest", city: "mrtest", street: "test", postcode: "2222", user_id: 2)
+    userinfo2 = UserInfo.create!(country: "Australia", city: "Brisbane", street: "Zagzig", postcode: "2222", user_id: 2)
 
     ########### Create user 2 profile image ###############
     userinfo2.picture.attach(
@@ -59,7 +59,7 @@ if User.count == 0
     User.create!(email: "mrstest@test.com", password: "testing", password_confirmation: "testing")
     
     ########### Create user 3 profile ###############
-    userinfo2 = UserInfo.create!(country: "mrstest", city: "mrstest", street: "test", postcode: "3333", user_id: 3)
+    userinfo2 = UserInfo.create!(country: "Australia", city: "Brisbane", street: "Zoozag", postcode: "3333", user_id: 3)
 
     ########### Create user 3 profile image ###############
     userinfo2.picture.attach(
