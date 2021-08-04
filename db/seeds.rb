@@ -72,6 +72,7 @@ end
 
 ########### Create listings ###############
 
+########### Create listing with user 1 ###############
 listing1 = Listing.create!(
     title: "Synth",
     description: "Listing 1 synth",
@@ -81,9 +82,38 @@ listing1 = Listing.create!(
     user_id: 1)
 
     listing1.picture.attach(
+        io: File.open("app/assets/images/testsythn1.jpg"),
+        filename: "testsythn1.jpg",
+        content_type: "image/jpg")
+
+########### Create listing with user 2 ###############
+listing2 = Listing.create!(
+    title: "Synth 2",
+    description: "Listing 2 synth",
+    price: 1.00,
+    condition: 1,
+    category_id: 1,
+    user_id: 2)
+        
+    listing2.picture.attach(
         io: File.open("app/assets/images/testsythn2.jpg"),
         filename: "testsythn2.jpg",
         content_type: "image/jpg")
+
+########### Create listing with user 3 ###############
+listing2 = Listing.create!(
+    title: "Synth 2",
+    description: "Listing 2 synth",
+    price: 1.00,
+    condition: 1,
+    category_id: 1,
+    user_id: 3)
+        
+    listing2.picture.attach(
+        io: File.open("app/assets/images/testsythn3.jpg"),
+        filename: "testsythn3.jpg",
+        content_type: "image/jpg")
+
 
 
         # 10.times do
