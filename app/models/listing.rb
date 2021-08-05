@@ -17,9 +17,6 @@ class Listing < ApplicationRecord
   #Add picture to listing
   has_one_attached :picture
 
-  has_many :cart_listings
-  has_many :carts, through: :cart_listings
-
   #data santization
   before_save :remove_whitespace
 

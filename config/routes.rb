@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   post 'users_info/update', to: 'users_info#update', as: 'users_info_update'
   get 'users_info/destroy'
   get 'users_info/new/:id', to: 'users_info#new', as: 'users_info_new'
-  get 'payments/webhook'
+  get 'payments/webhook', to: 'payments#webhook'
   devise_for :users
   root to: 'pages#home'
   get 'pages/about', to: 'pages#about'
   devise_for :installs
   resources :listings
   post '/payments/webhook', to: 'payments#webhook'
-  get 'payments/success', to: 'payments#success'
+  get '/payments/success', to: 'payments#success'
   resources :carts
 end
