@@ -20,5 +20,4 @@ Rails.application.routes.draw do
   resources :listings
   post '/payments/webhook', to: 'payments#webhook'
   get '/payments/success', to: 'payments#success'
-  resources :carts
 end
