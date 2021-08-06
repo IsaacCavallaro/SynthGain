@@ -29,6 +29,19 @@ class PaymentsController < ApplicationController
     purchase = Payment.where(listing_id: params[:listingId])
     p "----------------------------------"
     p purchase
+    p @listing
+  end
+
+  def orders
+    @orders = Payment.where(user_id: 1)
+    p "---------------orders-------------------"
+    p @orders
+
+  #   @listings = []
+  #   @orders.each do |order|
+  #     @listings << Listing.find(payment.listing_id)
+  #   end
+  # end
   end
 
 end

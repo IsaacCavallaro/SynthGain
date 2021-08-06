@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'users_info/destroy'
   get 'users_info/new/:id', to: 'users_info#new', as: 'users_info_new'
   get 'payments/webhook', to: 'payments#webhook'
+  get 'payments/order', to: 'payments#order', as: 'payments_order'
   devise_for :users
   root to: 'pages#home'
   get 'pages/about', to: 'pages#about'
