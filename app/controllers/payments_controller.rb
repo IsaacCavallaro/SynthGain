@@ -14,6 +14,7 @@ class PaymentsController < ApplicationController
 
     p receipt_url
 
+    #Create a payment from database and declared attributes
     Payment.create(user_id: buyer_id, listing_id: listing_id, payment_intent_id: payment_intent_id, receipt_url: receipt_url)
 
     p params

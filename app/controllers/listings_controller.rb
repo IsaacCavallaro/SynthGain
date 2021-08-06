@@ -12,6 +12,7 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
+    #retrieve all listings from the database
     @listings = Listing.all
     p @listings
   end
@@ -52,6 +53,7 @@ class ListingsController < ApplicationController
 
   # GET /listings/new
   def new
+    #initate a new listing
     @listing = Listing.new
   end
 
@@ -114,11 +116,11 @@ class ListingsController < ApplicationController
     end
 
     def setup_form
-      #Get all categories
+      #Get all categories from database
       @categories = Category.all
-      #Get all conditions keys
+      #Get all conditions keys from database
       @conditions = Listing.conditions.keys
-      #Get all features
+      #Get all features from database
       @features = Feature.all
     end
 
