@@ -1,4 +1,4 @@
-# require 'faker'
+require 'faker'
 
 #Set the categories for the category entity
 categories = ["Polyphonic", "Monophonic", "Modular"]
@@ -101,7 +101,7 @@ listing2 = Listing.create!(
         content_type: "image/jpg")
 
 ########### Create listing with user 3 ###############
-listing2 = Listing.create!(
+listing3 = Listing.create!(
     title: "Silly Synth",
     description: "Listing 3 synth",
     price: 1.00,
@@ -109,8 +109,18 @@ listing2 = Listing.create!(
     category_id: 1,
     user_id: 3)
         
-    listing2.picture.attach(
-        io: File.open("app/assets/images/testsythn3.jpg"),
-        filename: "testsythn3.jpg",
+    listing3.picture.attach(
+        io: File.open("app/assets/images/testsythn5.jpg"),
+        filename: "testsythn5.jpg",
         content_type: "image/jpg")
 
+########### User Faker to create listings ###############
+10.times do |x|
+    faker = Listing.create!(title: Faker::Drone.name, 
+        description: Faker::Lorem.sentences(number:1),price: 1.00, category_id: 1, user_id: 3)
+    
+        faker.picture.attach(
+            io: File.open("app/assets/images/testsythn3.jpg"),
+            filename: "testsythn3.jpg",
+            content_type: "image/jpg")
+end
