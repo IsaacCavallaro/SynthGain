@@ -1,4 +1,4 @@
-# require 'faker'
+require 'faker'
 
 #Set the categories for the category entity
 categories = ["Polyphonic", "Monophonic", "Modular"]
@@ -114,3 +114,8 @@ listing2 = Listing.create!(
         filename: "testsythn3.jpg",
         content_type: "image/jpg")
 
+########### User Faker to create listings ###############
+10.times do |x|
+    Listing.create!(title: Faker::Lorem.sentences(number: 1), 
+        description: Faker::Lorem.sentences(number:1),price: 1.00, category_id: 1, user_id: 3)
+end
