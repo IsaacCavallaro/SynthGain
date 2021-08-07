@@ -1,11 +1,9 @@
 class BuyersController < ApplicationController
   def index
-
-    @q = Listing.ransack(params[:q])
+    #Implementing eager loading to category and pictures 
+    @q = Listing.with_attached_picture.includes(:category).ransack(params[:q])
     @listings = @q.result
-    #retrieve all listings from database
-    # @listings = Listing.all
-    # p @listings
+   
   end
 
   def show

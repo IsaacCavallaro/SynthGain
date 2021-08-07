@@ -90,9 +90,9 @@ listing1 = Listing.create!(
 listing2 = Listing.create!(
     title: "Ultra Synth",
     description: "Listing 2 synth",
-    price: 1.00,
+    price: 2.00,
     condition: 1,
-    category_id: 1,
+    category_id: 2,
     user_id: 2)
         
     listing2.picture.attach(
@@ -104,9 +104,9 @@ listing2 = Listing.create!(
 listing3 = Listing.create!(
     title: "Silly Synth",
     description: "Listing 3 synth",
-    price: 1.00,
+    price: 3.00,
     condition: 1,
-    category_id: 1,
+    category_id: 3,
     user_id: 3)
         
     listing3.picture.attach(
@@ -117,7 +117,7 @@ listing3 = Listing.create!(
 ########### User Faker to create listings ###############
 10.times do |x|
     faker = Listing.create!(title: Faker::Drone.name, 
-        description: Faker::Lorem.sentences(number:1),price: 1.00, category_id: 1, user_id: 3)
+        description: Faker::Lorem.sentences(number:1),price: 1.00, category_id: (1..3).to_a.sample, user_id: 3)
     
         faker.picture.attach(
             io: File.open("app/assets/images/testsythn3.jpg"),
