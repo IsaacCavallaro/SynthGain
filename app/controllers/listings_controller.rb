@@ -30,7 +30,7 @@ class ListingsController < ApplicationController
           currency: 'aud',
           product_data: {
             name: @listing.title,
-            # description: @listing.description
+            description: @listing.description
           },
         },
         quantity: 1
