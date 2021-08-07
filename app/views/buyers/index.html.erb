@@ -1,3 +1,12 @@
+<br>
+<%= search_form_for(@q, :url => buyers_path, :method => :get ) do |f| %>
+  <%= f.label :title_cont %>
+  <%= f.search_field :title_cont %>
+  <%= f.submit %>
+<% end %>
+
+
+
 <h1 class="hero-title text-center">Synths For Sale</h1>
 
 <div class='container'>

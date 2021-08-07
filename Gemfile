@@ -57,3 +57,5 @@ gem "stripe", "~> 5.37"
 gem 'simple_form'
 
 
+
+gem "ransack", "~> 2.4"

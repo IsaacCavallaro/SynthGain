@@ -74,7 +74,7 @@ end
 
 ########### Create listing with user 1 ###############
 listing1 = Listing.create!(
-    title: "Synth",
+    title: "Wonder Synth",
     description: "Listing 1 synth",
     price: 1.00,
     condition: 1,
@@ -88,7 +88,7 @@ listing1 = Listing.create!(
 
 ########### Create listing with user 2 ###############
 listing2 = Listing.create!(
-    title: "Synth 2",
+    title: "Ultra Synth",
     description: "Listing 2 synth",
     price: 1.00,
     condition: 1,
@@ -102,8 +102,8 @@ listing2 = Listing.create!(
 
 ########### Create listing with user 3 ###############
 listing2 = Listing.create!(
-    title: "Synth 2",
-    description: "Listing 2 synth",
+    title: "Silly Synth",
+    description: "Listing 3 synth",
     price: 1.00,
     condition: 1,
     category_id: 1,
