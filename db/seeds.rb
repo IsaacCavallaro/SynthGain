@@ -1,5 +1,3 @@
-require 'faker'
-
 #Set the categories for the category entity
 categories = ["Polyphonic", "Monophonic", "Modular"]
 
