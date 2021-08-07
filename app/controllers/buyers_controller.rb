@@ -1,8 +1,11 @@
 class BuyersController < ApplicationController
   def index
+
+    @q = Listing.ransack(params[:q])
+    @listings = @q.result
     #retrieve all listings from database
-    @listings = Listing.all
-    p @listings
+    # @listings = Listing.all
+    # p @listings
   end
 
   def show
