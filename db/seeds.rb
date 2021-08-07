@@ -73,7 +73,7 @@ end
 ########### Create listing with user 1 ###############
 listing1 = Listing.create!(
     title: "Wonder Synth",
-    description: "Listing 1 synth",
+    description: "This synth is truly wonderful",
     price: 1.00,
     condition: 1,
     category_id: 1,
@@ -88,7 +88,7 @@ listing1 = Listing.create!(
 ########### Create listing with user 2 ###############
 listing2 = Listing.create!(
     title: "Ultra Synth",
-    description: "Listing 2 synth",
+    description: "Ultra synth will bring the ultra to your life",
     price: 2.00,
     condition: 1,
     category_id: 2,
@@ -103,7 +103,7 @@ listing2 = Listing.create!(
 ########### Create listing with user 3 ###############
 listing3 = Listing.create!(
     title: "Silly Synth",
-    description: "Listing 3 synth",
+    description: "A silly synth will go a long way to make your life better",
     price: 3.00,
     condition: 1,
     category_id: 3,
@@ -118,7 +118,7 @@ listing3 = Listing.create!(
 ########### User Faker to create listings ###############
 10.times do |x|
     faker = Listing.create!(title: Faker::Drone.name, 
-        description: Faker::Lorem.sentences(number:1),price: 1.00, category_id: (1..3).to_a.sample, user_id: (1..3).to_a.sample, condition: (1..2).to_a.sample, availability: true)
+        description: Faker::Lorem.sentences(number:1),price: (1..100).to_a.sample, category_id: (1..3).to_a.sample, user_id: (1..3).to_a.sample, condition: (1..2).to_a.sample, availability: true)
     
         faker.picture.attach(
             io: File.open("app/assets/images/testsythn3.jpg"),
