@@ -12,7 +12,7 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    #retrieve all listings from the database
+    #retrieve all listings from the database with eager loading
     @listings = Listing.all.with_attached_picture.includes(:category)
     p @listings
   end
