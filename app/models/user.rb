@@ -8,6 +8,4 @@ class User < ApplicationRecord
   has_many :listings
 
   has_one :user_info, dependent: :destroy
-
-  # accepts_nested_attributes_for :user_info
 end
