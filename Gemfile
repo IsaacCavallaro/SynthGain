@@ -59,3 +59,5 @@ gem 'simple_form'
 
 gem "ransack", "~> 2.4"
 
+gem "faker"
+
