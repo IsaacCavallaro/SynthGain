@@ -4,7 +4,7 @@ class Listing < ApplicationRecord
   validates :price, presence: true
   validates :description, presence: true
   validates :availability, presence: true
-  # validates :condition, presence: true
+  validates :condition, presence: true
 
   belongs_to :category
   #Set a listing to relate to one user

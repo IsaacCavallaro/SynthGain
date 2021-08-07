@@ -48,7 +48,6 @@ class ListingsController < ApplicationController
 
     @session_id = stripe_session.id
     pp stripe_session
-
   end
 
   # GET /listings/new

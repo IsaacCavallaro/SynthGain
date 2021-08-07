@@ -2,6 +2,8 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:webhook]
 
   def webhook
+    p params
+    p "---------------param-------------------"
     payment_intent_id = params[:data][:object][:payment_intent]
     payment = Stripe::PaymentIntent.retrieve(payment_intent_id)
 
@@ -34,7 +36,7 @@ class PaymentsController < ApplicationController
   end
 
   def orders
-    @orders = Payment.where(user_id: 1)
+    @orders = Payment.all
     p "---------------orders-------------------"
     p @orders
 
