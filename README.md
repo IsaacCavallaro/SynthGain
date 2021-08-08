@@ -231,6 +231,29 @@ https://github.com/IsaacCavallaro/SynthGain
 ![Sitemap version one](app/assets/images/aboutpage.png)
 
 ---
+<a name="wireframes"/></a>
+# Wireframes
+
+
+## Landing Page
+![Wireframe home page](app/assets/images/wireframehome.png)
+
+----
+
+## Buyer Page
+![Wireframe buyer page](app/assets/images/wireframebuyerpage.png)
+
+----
+
+## Listing Show Page
+![Wireframe listing show page](app/assets/images/wireframelistingshowpage.png)
+
+
+## Seller Profile Page
+![Wireframe seller profile page](app/assets/images/wireframesellerprofilepage.png)
+
+
+
 
 <a name="userstories"/></a>
 # User stories
