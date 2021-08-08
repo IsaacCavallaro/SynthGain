@@ -48,9 +48,196 @@ https://github.com/IsaacCavallaro/SynthGain
 
 - After becoming a member of *SynthGain*, users have the ability to easily **create** and **edit** their **user profile** which includes a profile image and their location details.
 
+## Target Audience
+
+- Musicians looking for an online environment that is limited to buying and selling vintage synthesizers.
+
+- Musicians who are wanting an online platform to buy and sell vintage synthesizers without requiring a facebook account.
+- Individuals who don't want to use a social media platform in order to sell or buy vintage synthesizers.
+- Individuals who have had bad experiences buying or selling music equipment (specifically vintage synthesizers) on other platforms like ebay, facebook marketplace.
+
+## Tech Stack
+
+- **Languages**
+    - HTML5 - Website Markup
+    - CSS3 - Website Styling
+    - JavaScript - Website Styling
+    - Ruby - Application Back-end
+- **Ruby on Rails**
+    - Server-side web application framework
+- **PostgreSQL**
+    - Relational Database Management System
+- **Heroku**
+    - Cloud Platform for hosting web applications
+- **Amazon S3 (Simple Storage Service)**
+    - Cloud Object Storage via a web service interface
+
 ## Sitemap v1
 
 ![Sitemap version one](app/assets/images/synth_gain_sitemap_1.png)
 
 
 ## Sitemap v2
+
+
+# User stories
+
+### ***As a Guest of SynthGain***
+
+- I want to be able to **view listings** and **search** for specific synthesizes by title so that I can quickly find the synth I am looking for to provide a simple user experience.
+- I want to be able to **view** the **profile of the seller** so that I can see whether the seller is trustworthy.
+- I want to have a **secure** way to sign up for *SynthGain* ****so that I can be assured my information is safe.
+
+### ***As a Seller of SynthGain***
+
+- I want to be able to **create** **listings** that include an **image**, descriptions and a category so that my listing details are clear.
+- I want to be able to **edit** my listings (change price, image etc) so that I can update my listings if circumstances change.
+- I want to be able to **delete** any of my listings so that I can **remove** any listings I no longer wish to **sell.**
+- I want to be able to **receive payment** digitally and in a secure manner so that I don't have to carry change or cash to sell any listings.
+- I want to be able to have access to the user's profile who is purchasing my listing so that I can track sales and the users interacting with my profile.
+
+### ***As a Buyer of SynthGain***
+
+- I want to be able to search for **specific synthesizers** by using **keywords** related to the items title ****so that I can find the appropriate synth I wish to purchase.
+- I want to be able to see the details of the synthesizer (image, category etc) so that I can understand the condition of the synth I wish to purchase.
+- I want to be able to see the **profile of a seller** so that I can see where they live and can connect with them.
+- I want to be able to make **payments securely** and see the **receipts of my purchases** so that I can have a record of my transactions.
+
+### ***Authentication & Authorisation of SynthGain***
+
+- I do not want other users to be able to access my account so I am ensured my items and details are protected.
+- I do not want other users to be able to edit or delete my listings so that I am ensured that my listings are up to date.
+
+# Third Party Services
+
+## Devise:
+
+- Devised is a ruby gem that creates sign-up and sign-in forms with user authentication.
+
+## Bootstrap:
+
+- Boostrap is a HTML, CSS and JavaScript library which I used to implement styling across the app. Specifically, bootstrap was used for the navbar, buttons and card layouts.
+
+## AWS:
+
+- Cloud storage of files and images used in and uploaded to the app. This cloud platform supported by Amazon is scalable, reliable and a secure storage method
+
+## Ransack:
+
+- Ransack is a Ruby gem that creates simple search forms and filtering; allowing users of Synthgain the ability to search for listings by their title.
+
+## Stripe:
+
+- A payment software platform implemented in the app to provide buyers and growers with a cashless and secure third party service in which to transact. I chose Stripe as they offer low transaction fees.
+
+## Ultrahook:
+
+- This app uses ultrahook to provide a public webhook endpoint to receive realtime information from Stripe.
+
+# SynthGain's models and their active record associations
+
+Below is a list of *SynthGain's* central models and what they represent.
+
+## User:
+
+- The User model represents the users of the *SynthGain* app. This includes users who wish to sell or buy listings on the app.
+
+## User_info:
+
+- The User_info model represents the user profile which includes the Users location details.
+
+## Listing:
+
+- The Listing model represents the products (in this case synthesizers).
+
+## Feature:
+
+- The Feature model represents the features of the Listing. Since a Listing can have many features which can be associated with many listings, a join table was created. This can be seen in the ERD and additionally by the next model included in this list, feature_listing.
+
+## Feature_listing:
+
+- See above
+
+## Category:
+
+- The Category model represents what category the Listing falls under. This app uses three categories:
+    - Modular
+    - Monophonic
+    - Polyphonic
+
+## Payment:
+
+- The Payment model represents the orders/purchases made which are associated with the User and the Listing purchased.
+
+## Rails associations
+
+- Rails supports six types of associations, namely:
+    - belongs_to
+    - has_one
+    - has_many
+    - has_many :through
+    - has_one :through
+    - has_and_belongs_to_many
+
+
+This project uses the first five outlined above.
+- The list below again illustrates the central models to this app but with the addition of their corresponding associations.
+
+## User:
+
+- has_many :listings
+    - This indicates a one-to-many connection with the Listing model.
+    - In order to implement this relationship, the Listings table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 133: **add_foreign_key "listings", "users"**
+    - In short, a user of SynthGain has sell or buy many synthesizers.
+
+- has_one :user_info
+    - This association indicates that the User model has reference to this model. In other words, the User model can fetch User_info data through this association.
+    - In order to implement this relationship, the User_info table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 136: **add_foreign_key "user_infos", "users"**
+    - In short, A user will only have one profile and cannot have many profiles associated with their user account.
+
+## User_info:
+
+- belongs_to :user
+    - This belongs to User association sets up a connection between User_info and the User model.
+    - As mentioned above, user_infos is a foreign key for the users table. In this manner, the user_info "belongs to" the user.
+- has_one_attached :picture
+    - This sets up a one-to-one mapping between records and files in such that each record can have one file (picture) attached to it.
+
+## Listing:
+
+- belongs_to :category
+    - This belongs to Category association sets up a connection between the Listing and the Category model.
+- belongs_to :user
+    - This belongs to User association sets up a connection between Listing and the User model.
+- has_many :feature_listings
+    - This has many feature_listings indicates a one-to-many connection with the feature_listing model.
+- has_many :features, through: :feature_listing
+    - This has many through association sets up the many-to-many connection between Listing and Features.
+
+## Feature:
+
+- has_many :feature_listings
+    - This has many feature_listings indicates a one-to-many connection with the feature_listing model.
+- has_many :listings, through: :feature_listings
+    - This has many through association sets up the many-to-many connection between Feature and Listings.
+
+## Feature_listing:
+
+- belongs_to :listing
+    - This belongs to Listing association sets up a connection between Feature Listing and Listing model.
+- belongs_to :feature
+    - This belongs to Feature association sets up a connection between Feature Listing and the feature model.
+
+## Category:
+
+- has_many :listings
+    - This has many Listings association sets up a connection between Category and Listings.
+    - In short, a category can be related to many Listings where as a Listing will only have one category.
+
+## Payment:
+
+- has_many :listings
+    - This has many Listings association sets up a connection between Payment and Listings.
+    - In short, a Payment can be related to many Listings whereas a Listing will only be associated with one Payment.
+- has_one :user
+    - The has one user association illustrates that a Payment will only reference one user and not many.
