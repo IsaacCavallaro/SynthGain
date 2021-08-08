@@ -1,3 +1,38 @@
+# Set up instructions for local server
+
+1. Clone this repo.
+
+        git clone https://github.com/IsaacCavallaro/SynthGain.git
+
+2. Run Bundle install to install all gems.
+
+        bundle install
+
+3. Rake db:setup to create local database migrate and seed.
+
+        rake db:setup 
+        rake db:migrate 
+        rake db:seed
+
+4. Enter credentials for Stripe.
+
+- Head to https://stripe.com/en-au
+
+5. Run the rails server.
+
+        rails s
+
+6. Load [http://localhost:3000/](http://localhost:3000/) in the browser.
+
+# Accounts
+
+Email  | Password |   
+| ------------ | :-------|    
+| test@test.com | `testing` 
+| mrtest@test.com | `testing`  
+| mrstest@test.com | `testing`
+
+
 # Identification of the problem you are trying to solve by building this particular marketplace app.
 
 - Currently, there are no online Marketplaces **dedicated** to **buying** and **selling vintage synthesizers.**
@@ -104,10 +139,28 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ![Sitemap version one](app/assets/images/listingshow.png)
 
+## Seller Profile Page
+
+![Sitemap version one](app/assets/images/sellerprofilepage.png)
+
 ## Create New Listing Page
 
 ![Sitemap version one](app/assets/images/createlisting.png)
 
+## Edit or Delete Listing 
+
+![Sitemap version one](app/assets/images/edit_delete_listing.png)
+
+## Edit User Profile
+
+![Sitemap version one](app/assets/images/edit_user_profile.png)
+
+
+
+
+## About page
+
+![Sitemap version one](app/assets/images/aboutpage.png)
 
 # User stories
 
