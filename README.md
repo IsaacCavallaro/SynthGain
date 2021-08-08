@@ -1,3 +1,20 @@
+
+# TOC
+
+[Set up](#setup) 
+[Problem](#problem)   
+[App Overview](#overview)  
+[User Stories](#userstories)  
+[Target Audience](#targetaudience)   
+[Tech Stack](#techstack)      
+[Wireframes & Sitemap](#wireframes)  
+[ERD & Database Schema Design](#erd)   
+[Entity Relationships](#relations)  
+[Third Party Services](#thirdparty)
+  
+
+---
+<a name="setup"/></a>
 # Set up instructions for local server
 
 1. Clone this repo.
@@ -24,7 +41,7 @@
 
 6. Load [http://localhost:3000/](http://localhost:3000/) in the browser.
 
-# Accounts
+# Login Accounts
 
 Email  | Password |   
 | ------------ | :-------|    
@@ -32,7 +49,8 @@ Email  | Password |
 | mrtest@test.com | `testing`  
 | mrstest@test.com | `testing`
 
-
+--- 
+<a name="problem"/></a>
 # Identification of the problem you are trying to solve by building this particular marketplace app.
 
 - Currently, there are no online Marketplaces **dedicated** to **buying** and **selling vintage synthesizers.**
