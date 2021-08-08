@@ -164,40 +164,42 @@ https://github.com/IsaacCavallaro/SynthGain
 
 Below is a list of *SynthGain's* central models and what they represent.
 
-## User:
+### User
 
 - The User model represents the users of the *SynthGain* app. This includes users who wish to sell or buy listings on the app.
 
-## User_info:
+### User_info
 
 - The User_info model represents the user profile which includes the Users location details.
 
-## Listing:
+### Listing
 
 - The Listing model represents the products (in this case synthesizers).
 
-## Feature:
+### Feature
 
 - The Feature model represents the features of the Listing. Since a Listing can have many features which can be associated with many listings, a join table was created. This can be seen in the ERD and additionally by the next model included in this list, feature_listing.
 
-## Feature_listing:
+### Feature_listing
 
 - See above
 
-## Category:
+### Category
 
 - The Category model represents what category the Listing falls under. This app uses three categories:
+
     - Modular
     - Monophonic
     - Polyphonic
 
-## Payment:
+### Payment
 
 - The Payment model represents the orders/purchases made which are associated with the User and the Listing purchased.
 
 ## Rails associations
 
 - Rails supports six types of associations, namely:
+
     - belongs_to
     - has_one
     - has_many
@@ -209,11 +211,14 @@ Below is a list of *SynthGain's* central models and what they represent.
 This project uses the first five outlined above.
 - The list below again illustrates the central models to this app but with the addition of their corresponding associations.
 
-## User:
+### User
 
 - has_many :listings
+
     - This indicates a one-to-many connection with the Listing model.
+
     - In order to implement this relationship, the Listings table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 133: **add_foreign_key "listings", "users"**
+
     - In short, a user of SynthGain can sell or buy many synthesizers.
 
 - has_one :user_info
@@ -221,60 +226,84 @@ This project uses the first five outlined above.
     - In order to implement this relationship, the User_info table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 136: **add_foreign_key "user_infos", "users"**
     - In short, A user will only have one profile and cannot have many profiles associated with their user account.
 
-## User_info:
+### User_info
 
 - belongs_to :user
+
     - This belongs to User association sets up a connection between User_info and the User model.
+
     - As mentioned above, user_infos is a foreign key for the users table. In this manner, the user_info "belongs to" the user.
+
 - has_one_attached :picture
+
     - This sets up a one-to-one mapping between records and files in such that each record can have one file (picture) attached to it.
 
-## Listing:
+### Listing
 
 - belongs_to :category
+
     - This belongs to Category association sets up a connection between the Listing and the Category model.
+
 - belongs_to :user
     - This belongs to User association sets up a connection between Listing and the User model.
+
 - has_many :feature_listings
+
     - This has many feature_listings indicates a one-to-many connection with the feature_listing model.
+
 - has_many :features, through: :feature_listing
+
     - This has many through association sets up the many-to-many connection between Listing and Features.
 
-## Feature:
+### Feature
 
 - has_many :feature_listings
+
     - This has many feature_listings indicates a one-to-many connection with the feature_listing model.
+
 - has_many :listings, through: :feature_listings
+
     - This has many through association sets up the many-to-many connection between Feature and Listings.
 
-## Feature_listing:
+### Feature_listing
 
 - belongs_to :listing
+
     - This belongs to Listing association sets up a connection between Feature Listing and Listing model.
+
+
 - belongs_to :feature
+
     - This belongs to Feature association sets up a connection between Feature Listing and the feature model.
 
-## Category:
+### Category
 
 - has_many :listings
+
     - This has many Listings association sets up a connection between Category and Listings.
+
     - In short, a category can be related to many Listings where as a Listing will only have one category.
 
-## Payment:
+### Payment
 
 - has_many :listings
+
     - This has many Listings association sets up a connection between Payment and Listings.
+
     - In short, a Payment can be related to many Listings whereas a Listing will only be associated with one Payment.
 - has_one :user
     - The has one user association illustrates that a Payment will only reference one user and not many.
 
 # Database relations implemented in SynthGain
 
-## User & Listing
+### User & Listing
 
 - When looking at the relationship between User and Listing, it can be seen that:
+
     - A User has many Listings.
+
     - A Listing belongs to a User.
+
 - This active record association between a User and Listing represents **a one-to-many association.**
 
 - This relationship is evident in the final Entity Relationship Diagram (ERD). Importantly, the * refers to many while the 1 does not. In other words, the 1 may refer to either a **belongs to** or **has one** while the * refers to **has many**.
@@ -283,10 +312,12 @@ This project uses the first five outlined above.
 
 ![User and Listing relationship](app/assets/images/ERD_User_Listing.png)
 
-## User & User_info
+### User & User_info
 
 - When looking at the relationship between User and User_info, it can be seen that:
+
     - A User has one User_info.
+
     - User_info belongs to a User and has one attached picture.
 - This active record association between a User and Listing represents a **one-to-one** association.
 
@@ -294,15 +325,44 @@ This project uses the first five outlined above.
 
 ![User and Listing relationship](app/assets/images/ERD_User_UserInfo.png)
 
-## Listing & Category
+### Listing & Category
 
 - When looking at the relationship between Listing and Category, it can be seen that:
+
     - A Listing belongs to Category.
+
     - A Category has many Listings.
+
 - This active record association between a Listing and Category represents a **one-to-many** association.
 - The image below illustrates this relationship clearly and demonstrates that a Listing **belongs to** a Category while a Category **has many** Listings.
 
 ![User and Listing relationship](app/assets/images/ERD_Listing_Category.png)
+
+
+### Listing,  Feature_listing & Feature
+
+- Given that a Listing can have many Features which can be associated with many Listings, a join table was created to break up a many to many association between the Listing and Feature. This join table can be seen with the model Feature_listing. Without this join table, the relationship would be:
+
+    - A Listing has many Features.
+
+    - A Feature has many Listings.
+
+- By implementing this join table Feature_listing, the relationships are:
+
+    - A Listing has many Feature Listings.
+
+    - A Listing has many Features through Feature Listings.
+
+    - A Feature has many Feature Listings.
+
+    - A Feature has many Listings through Feature Listings.
+
+- The image below illustrates this breaking up of a many to many relationship between the Listing and Feature tables by including the FeatureListing table as a join table. In this manner, a Listing can have many Features through Feature Listings while a Feature may be associated with many Listings.
+
+![User and Listing relationship](app/assets/images/ERD_Listing_FeatureListing.png)
+
+
+
 
 # Task allocation for SynthGain
 
