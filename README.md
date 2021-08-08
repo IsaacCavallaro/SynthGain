@@ -241,3 +241,18 @@ This project uses the first five outlined above.
     - In short, a Payment can be related to many Listings whereas a Listing will only be associated with one Payment.
 - has_one :user
     - The has one user association illustrates that a Payment will only reference one user and not many.
+
+# Database relations to be implemented in SynthGain
+
+## User & Listing
+
+- When looking at the relationship between User and Listing (identified above), it can be seen that:
+    - A User has many Listings.
+    - A Listing belongs to a User.
+- This active record association between a User and Listing represents **a one-to-many association.**
+
+- This relationship is evident in the final Entity Relationship Diagram (ERD). Importantly, the * refers to many while the 1 does not. In other words, the 1 may refer to either a **belongs to** or **has one** while the * refers to **has many**.
+
+- The image below illustrates this relationship clearly and demonstrates that a User **has many** Listings while a Listing **belongs to** one User.
+
+![User and Listing relationship](app/assets/images/ERD_User_Listing.png)
