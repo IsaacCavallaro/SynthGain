@@ -125,7 +125,7 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ## ERD Final
 
-- Unfortunately, this cart feature was not able to be implemented due to the deadline of producing an MVP fast approaching. In the end, the MVP was the priority and I decided to remove my cart and join tables and simply the ERD and app.
+- Unfortunately, this cart feature was not able to be implemented due to the deadline of producing an MVP fast approaching. In the end, the MVP was the priority and I decided to remove my cart and join tables and simplify the ERD and app.
 
 ![ERD version two](app/assets/images/ERD_final.png)
 
@@ -140,9 +140,13 @@ https://github.com/IsaacCavallaro/SynthGain
 
 - Boostrap is a HTML, CSS and JavaScript library which I used to implement styling across the app. Specifically, bootstrap was used for the navbar, buttons and card layouts.
 
+## Heroku
+
+- Heroku allows developers to deploy, run and manage their applications written in a various languages; one such including the Ruby language. This is one of the reasons I selected Heroku as the service for deploying *SynthGain*. Specifically, I used the heroku-postgresql service with the free hobby-dev plan. Given the Heroku Postgres is integrated directly into the Heroku CLI, I was able to use my terminal to setup my database for production. In addition to these outlined reasons, Heroku has 60+ Billion Requests per Day and over 13 million created apps, claiming to "get[s] out of the way where it matters, letting devs get on with what they do best - developing apps".
+
 ## AWS:
 
-- Cloud storage of files and images used in and uploaded to the app. This cloud platform supported by Amazon is scalable, reliable and a secure storage method
+- Cloud storage of files and images used and uploaded to the app. This cloud platform supported by Amazon is scalable, reliable and a secure storage method. Specifically, *SynthGain* implements the S3 service provided by AWS. This was achieved through creating a bucket with Amazon S3; allowing me to store images on their service. While *SythGain* is relatively small, the app includes a number of images which may potentially exceed the room available on the free tier of Heroku deployment. Therefore, by creating a bucket with Amazon S3, I could strategically store a number of images on their service and avoid exceeding the limit with Heroku.For more information on AWS and specifically Amazon S3, click [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html).
 
 ## Ransack:
 
@@ -150,11 +154,11 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ## Stripe:
 
-- A payment software platform implemented in the app to provide buyers and growers with a cashless and secure third party service in which to transact. I chose Stripe as they offer low transaction fees.
+- Stripe is an online payments platform which I chose to implement SynthGain with in order to provide users a cashless and secure third party service in which they can make transactions. In addition to being a recognized payment platform, Stripe provids a well-documented API for integrating it with Ruby on Rails applications. Stripe claims that 89% of all credit cards have been processed on a Stripe network at some point in addition to the company powering the transactions of household brands including Pinterest, Blue Apron, Under Armour and Lyft. Given Stripes ability to handle 135 + currencies and frequent use between companies which do business internationally, it seems fitting to trust Stripe for this project.  One other reason I chose to implement Stripe was because of their low transaction fees.
 
 ## Ultrahook:
 
-- This app uses ultrahook to provide a public webhook endpoint to receive realtime information from Stripe.
+- SynthGain uses ultrahook to provide a public webhook endpoint to receive realtime information from Stripe. Specifically, Ultrahook is a gem which provides an internet reachable URL from the computer. Ultrahook will then forward the request on to my localhost. After signing up, Ultrahook emailed me an API key which gave me an exclusive namespace, allowing me to create subdomains under my namespace; ensuring the same endpoints upon future reconnections.
 
 # SynthGain's models and their active record associations
 
@@ -210,7 +214,7 @@ This project uses the first five outlined above.
 - has_many :listings
     - This indicates a one-to-many connection with the Listing model.
     - In order to implement this relationship, the Listings table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 133: **add_foreign_key "listings", "users"**
-    - In short, a user of SynthGain has sell or buy many synthesizers.
+    - In short, a user of SynthGain can sell or buy many synthesizers.
 
 - has_one :user_info
     - This association indicates that the User model has reference to this model. In other words, the User model can fetch User_info data through this association.
@@ -300,3 +304,30 @@ This project uses the first five outlined above.
 
 ![User and Listing relationship](app/assets/images/ERD_Listing_Category.png)
 
+# Task allocation for SynthGain
+
+## Link to Trello Board
+
+To see the Trello board click [here](https://trello.com/b/VAERKf1d/synthgain).
+
+## Trello Board overview
+
+In order to manage this project effectively, I applied Agile project management concepts which allowed me to approach tasks incrementally. This approach was implemented using a Trello Board, allowing me to visually see the various tasks, their deadline and corresponding priority within completing this project. Upon the release of this project, I prioritised setting up my Trello Board before taking action towards any other areas this project required (wireframes, ERDs, coding etc). By initially limiting myself to planning out how this project will be approached in conjunction with the features of Trello, I could use my time effectively and follow the tasks allocated within my Trello Board. 
+
+Initially, the decision was made to create four lists within Trello:
+
+- Tasks
+- To do today
+- In Progress
+- Done
+
+While I believe this system may have been enough to manage this project, I made the decision to include two more lists:
+
+- Bugs
+- Extra features (optional)
+
+My aim here was to have a list that can easily track any bugs that are introduced over the course of developing the project; allowing me to continue working on the appropriate task with the confidence that such bugs have been noted and can be addressed at a later stage. Overall, my board consisted of six lists with each list carrying cards dedicated to tasks this project requires. These tasks include the documentation, presentation and code elements of this project. In this manner, Trello was used to manage and track all areas of this project. 
+
+## Version Control
+
+In addition to the above outlined Agile project management system I applied to this project, I made regular use of version control allowing me to recall specific versions of the project during different stages of its build. This was done using GIT locally while taking advantage of GIT's ability to store data as a series of "snapshots". After I made commits to my local machine, I would push them to Github as my remote repository of choice for this project. While this approach of making regular commits and pushing those to my remote Github repository was effective in the initial stages of building SynthGain, the limitations of this method became evident as the project continued to grow. In this manner, costs of being creative within my local environment outweighed the benefits of implementing new features; if such costs meant breaking the code a little too much. To solve this, I took advantage of creating multiple branches with each branch solving their own purpose. By doing so, I could safely make changes and strategically test removing or adding new features to the application with the comfort of knowing that it will not affect the progress I had made prior to working on this new branch. Once I was happy with the work done within this branch, I would commit the changes, push them to Github, merge the changes on Github, switch to my master branch on my local machine make a pull request to my master branch. 
