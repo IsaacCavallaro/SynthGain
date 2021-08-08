@@ -80,32 +80,70 @@ https://github.com/IsaacCavallaro/SynthGain
 ## Sitemap v2
 
 
+## SynthGain Screenshots
+
+- All screenshots are taken for the application in production August 8th, via Heroku at: [https://synth-gain.herokuapp.com/](https://synth-gain.herokuapp.com/)
+
+## Landing Page 
+
+![Sitemap version one](app/assets/images/landingpage.png)
+
+## Buyer Page
+
+![Sitemap version one](app/assets/images/buylistings.png)
+
+## Search by Title Keyword Page
+
+![Sitemap version one](app/assets/images/searchtitle.png)
+
+## User Profile
+
+![Sitemap version one](app/assets/images/userprofile.png)
+
+## Listing Show Page
+
+![Sitemap version one](app/assets/images/listingshow.png)
+
+## Create New Listing Page
+
+![Sitemap version one](app/assets/images/createlisting.png)
+
+
 # User stories
 
 ### ***As a Guest of SynthGain***
 
 - I want to be able to **view listings** and **search** for specific synthesizes by title so that I can quickly find the synth I am looking for to provide a simple user experience.
+
 - I want to be able to **view** the **profile of the seller** so that I can see whether the seller is trustworthy.
+
 - I want to have a **secure** way to sign up for *SynthGain* ****so that I can be assured my information is safe.
 
 ### ***As a Seller of SynthGain***
 
 - I want to be able to **create** **listings** that include an **image**, descriptions and a category so that my listing details are clear.
+
 - I want to be able to **edit** my listings (change price, image etc) so that I can update my listings if circumstances change.
+
 - I want to be able to **delete** any of my listings so that I can **remove** any listings I no longer wish to **sell.**
+
 - I want to be able to **receive payment** digitally and in a secure manner so that I don't have to carry change or cash to sell any listings.
 - I want to be able to have access to the user's profile who is purchasing my listing so that I can track sales and the users interacting with my profile.
 
 ### ***As a Buyer of SynthGain***
 
-- I want to be able to search for **specific synthesizers** by using **keywords** related to the items title ****so that I can find the appropriate synth I wish to purchase.
+- I want to be able to search for **specific synthesizers** by using **keywords** related to the items title, so that I can find the appropriate synth I wish to purchase.
+
 - I want to be able to see the details of the synthesizer (image, category etc) so that I can understand the condition of the synth I wish to purchase.
+
 - I want to be able to see the **profile of a seller** so that I can see where they live and can connect with them.
+
 - I want to be able to make **payments securely** and see the **receipts of my purchases** so that I can have a record of my transactions.
 
 ### ***Authentication & Authorisation of SynthGain***
 
 - I do not want other users to be able to access my account so I am ensured my items and details are protected.
+
 - I do not want other users to be able to edit or delete my listings so that I am ensured that my listings are up to date.
 
 
@@ -144,25 +182,27 @@ https://github.com/IsaacCavallaro/SynthGain
 
 - Heroku allows developers to deploy, run and manage their applications written in a various languages; one such including the Ruby language. This is one of the reasons I selected Heroku as the service for deploying *SynthGain*. Specifically, I used the heroku-postgresql service with the free hobby-dev plan. Given the Heroku Postgres is integrated directly into the Heroku CLI, I was able to use my terminal to setup my database for production. In addition to these outlined reasons, Heroku has 60+ Billion Requests per Day and over 13 million created apps, claiming to "get[s] out of the way where it matters, letting devs get on with what they do best - developing apps".
 
-## AWS:
+## AWS
 
 - Cloud storage of files and images used and uploaded to the app. This cloud platform supported by Amazon is scalable, reliable and a secure storage method. Specifically, *SynthGain* implements the S3 service provided by AWS. This was achieved through creating a bucket with Amazon S3; allowing me to store images on their service. While *SythGain* is relatively small, the app includes a number of images which may potentially exceed the room available on the free tier of Heroku deployment. Therefore, by creating a bucket with Amazon S3, I could strategically store a number of images on their service and avoid exceeding the limit with Heroku.For more information on AWS and specifically Amazon S3, click [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html).
 
-## Ransack:
+## Ransack
 
 - Ransack is a Ruby gem that creates simple search forms and filtering; allowing users of Synthgain the ability to search for listings by their title.
 
-## Stripe:
+## Stripe
 
 - Stripe is an online payments platform which I chose to implement SynthGain with in order to provide users a cashless and secure third party service in which they can make transactions. In addition to being a recognized payment platform, Stripe provids a well-documented API for integrating it with Ruby on Rails applications. Stripe claims that 89% of all credit cards have been processed on a Stripe network at some point in addition to the company powering the transactions of household brands including Pinterest, Blue Apron, Under Armour and Lyft. Given Stripes ability to handle 135 + currencies and frequent use between companies which do business internationally, it seems fitting to trust Stripe for this project.  One other reason I chose to implement Stripe was because of their low transaction fees.
 
-## Ultrahook:
+## Ultrahook
 
 - SynthGain uses ultrahook to provide a public webhook endpoint to receive realtime information from Stripe. Specifically, Ultrahook is a gem which provides an internet reachable URL from the computer. Ultrahook will then forward the request on to my localhost. After signing up, Ultrahook emailed me an API key which gave me an exclusive namespace, allowing me to create subdomains under my namespace; ensuring the same endpoints upon future reconnections.
 
+## Unsplash
+
 # SynthGain's models and their active record associations
 
-Below is a list of *SynthGain's* central models and what they represent.
+Below is a list of *SynthGain's* **central models** and what they represent.
 
 ### User
 
