@@ -1,16 +1,29 @@
 
 # TOC
 
-[Set up](#setup) 
-[Problem](#problem)   
+[Set up](#setup)
+
+[Login Accounts](#login)
+
+[Problem](#problem)
+
 [App Overview](#overview)  
+
 [User Stories](#userstories)  
-[Target Audience](#targetaudience)   
-[Tech Stack](#techstack)      
+
+[Target Audience](#targetaudience) 
+
+[Tech Stack](#techstack)  
+
 [Wireframes & Sitemap](#wireframes)  
-[ERD & Database Schema Design](#erd)   
-[Entity Relationships](#relations)  
+
+[ERD](#erd)  
+ 
+[Purpose](#purpose) 
+
 [Third Party Services](#thirdparty)
+
+[App Screenshots](#screenshots)
   
 
 ---
@@ -41,6 +54,7 @@
 
 6. Load [http://localhost:3000/](http://localhost:3000/) in the browser.
 
+<a name="login"/></a>
 # Login Accounts
 
 Email  | Password |   
@@ -77,6 +91,7 @@ https://github.com/IsaacCavallaro/SynthGain
 
 # Description of SynthGain
 
+<a name="purpose"/></a>
 ## Purpose
 
 - To connect lovers of vintage synthesizers within a digital community.
@@ -85,6 +100,7 @@ https://github.com/IsaacCavallaro/SynthGain
 - There is an expectation at *SynthGain* that you have a background in music or understand the mechanics involved in maintaining a vintage synthesizer.
 - *SynthGain* is a place for lovers of vintage synthesizers to buy and sell these beautiful instruments.
 
+---
 ## Benefits of SynthGain
 
 - Connecting lovers of vintage synths.
@@ -92,6 +108,8 @@ https://github.com/IsaacCavallaro/SynthGain
 - Secure third party payment system with low transaction fees (Stripe fees < 3%).
 - Allowing vintage synths to remain "active" in the community and not end up collecting dust.
 - By dedicating its demographic to the community of synth lovers, there is a reduction in propagating opportunists who wish to use the platform as a place to make money.
+
+---
 
 ## Functionality/features
 
@@ -101,6 +119,8 @@ https://github.com/IsaacCavallaro/SynthGain
 
 - After becoming a member of *SynthGain*, users have the ability to easily **create** and **edit** their **user profile** which includes a profile image and their location details.
 
+---
+
 ## Target Audience
 
 - Musicians looking for an online environment that is limited to buying and selling vintage synthesizers.
@@ -109,22 +129,35 @@ https://github.com/IsaacCavallaro/SynthGain
 - Individuals who don't want to use a social media platform in order to sell or buy vintage synthesizers.
 - Individuals who have had bad experiences buying or selling music equipment (specifically vintage synthesizers) on other platforms like ebay, facebook marketplace.
 
+---
+
+<a name="techstack"/></a>
 ## Tech Stack
 
 - **Languages**
     - HTML5 - Website Markup
+
     - CSS3 - Website Styling
     - JavaScript - Website Styling
     - Ruby - Application Back-end
+
 - **Ruby on Rails**
+
     - Server-side web application framework
+
 - **PostgreSQL**
+
     - Relational Database Management System
+
 - **Heroku**
+
     - Cloud Platform for hosting web applications
+
 - **Amazon S3 (Simple Storage Service)**
+
     - Cloud Object Storage via a web service interface
 
+---
 ## Sitemap v1
 
 ![Sitemap version one](app/assets/images/synth_gain_sitemap_1.png)
@@ -132,54 +165,74 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ## Sitemap v2
 
-
+---
+<a name="screenshots"/></a>
 ## SynthGain Screenshots
 
 - All screenshots are taken for the application in production August 8th, via Heroku at: [https://synth-gain.herokuapp.com/](https://synth-gain.herokuapp.com/)
+
+---
 
 ## Landing Page 
 
 ![Sitemap version one](app/assets/images/landingpage.png)
 
+---
+
 ## Buyer Page
 
 ![Sitemap version one](app/assets/images/buylistings.png)
 
+---
 ## Search by Title Keyword Page
 
 ![Sitemap version one](app/assets/images/searchtitle.png)
+
+---
 
 ## User Profile
 
 ![Sitemap version one](app/assets/images/userprofile.png)
 
+---
+
 ## Listing Show Page
 
 ![Sitemap version one](app/assets/images/listingshow.png)
+
+---
 
 ## Seller Profile Page
 
 ![Sitemap version one](app/assets/images/sellerprofilepage.png)
 
+---
+
 ## Create New Listing Page
 
 ![Sitemap version one](app/assets/images/createlisting.png)
+
+---
 
 ## Edit or Delete Listing 
 
 ![Sitemap version one](app/assets/images/edit_delete_listing.png)
 
+---
+
 ## Edit User Profile
 
 ![Sitemap version one](app/assets/images/edit_user_profile.png)
 
-
-
+---
 
 ## About page
 
 ![Sitemap version one](app/assets/images/aboutpage.png)
 
+---
+
+<a name="userstories"/></a>
 # User stories
 
 ### ***As a Guest of SynthGain***
@@ -189,6 +242,8 @@ https://github.com/IsaacCavallaro/SynthGain
 - I want to be able to **view** the **profile of the seller** so that I can see whether the seller is trustworthy.
 
 - I want to have a **secure** way to sign up for *SynthGain* ****so that I can be assured my information is safe.
+
+---
 
 ### ***As a Seller of SynthGain***
 
@@ -201,6 +256,8 @@ https://github.com/IsaacCavallaro/SynthGain
 - I want to be able to **receive payment** digitally and in a secure manner so that I don't have to carry change or cash to sell any listings.
 - I want to be able to have access to the user's profile who is purchasing my listing so that I can track sales and the users interacting with my profile.
 
+---
+
 ### ***As a Buyer of SynthGain***
 
 - I want to be able to search for **specific synthesizers** by using **keywords** related to the items title, so that I can find the appropriate synth I wish to purchase.
@@ -211,13 +268,16 @@ https://github.com/IsaacCavallaro/SynthGain
 
 - I want to be able to make **payments securely** and see the **receipts of my purchases** so that I can have a record of my transactions.
 
+---
+
 ### ***Authentication & Authorisation of SynthGain***
 
 - I do not want other users to be able to access my account so I am ensured my items and details are protected.
 
 - I do not want other users to be able to edit or delete my listings so that I am ensured that my listings are up to date.
 
-
+---
+<a name="erd"/></a>
 # SynthGain ERD's
 
 ## ERD v1
@@ -225,6 +285,8 @@ https://github.com/IsaacCavallaro/SynthGain
 - Prior to building the application, I designed the first version of an ERD for *SynthGain*:
 
 ![ERD version one](app/assets/images/ERD_one.png)
+
+---
 
 ## ERD v2
 
@@ -238,74 +300,108 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ![ERD version two](app/assets/images/ERD_final.png)
 
-
+---
+<a name="thirdparty"/></a>
 # Third Party Services
 
 ## Devise:
 
 - Devised is a ruby gem that creates sign-up and sign-in forms with user authentication.
 
+---
+
 ## Bootstrap:
 
 - Boostrap is a HTML, CSS and JavaScript library which I used to implement styling across the app. Specifically, bootstrap was used for the navbar, buttons and card layouts.
+
+---
 
 ## Heroku
 
 - Heroku allows developers to deploy, run and manage their applications written in a various languages; one such including the Ruby language. This is one of the reasons I selected Heroku as the service for deploying *SynthGain*. Specifically, I used the heroku-postgresql service with the free hobby-dev plan. Given the Heroku Postgres is integrated directly into the Heroku CLI, I was able to use my terminal to setup my database for production. In addition to these outlined reasons, Heroku has 60+ Billion Requests per Day and over 13 million created apps, claiming to "get[s] out of the way where it matters, letting devs get on with what they do best - developing apps".
 
+---
+
 ## AWS
 
 - Cloud storage of files and images used and uploaded to the app. This cloud platform supported by Amazon is scalable, reliable and a secure storage method. Specifically, *SynthGain* implements the S3 service provided by AWS. This was achieved through creating a bucket with Amazon S3; allowing me to store images on their service. While *SythGain* is relatively small, the app includes a number of images which may potentially exceed the room available on the free tier of Heroku deployment. Therefore, by creating a bucket with Amazon S3, I could strategically store a number of images on their service and avoid exceeding the limit with Heroku.For more information on AWS and specifically Amazon S3, click [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html).
+
+---
 
 ## Ransack
 
 - Ransack is a Ruby gem that creates simple search forms and filtering; allowing users of Synthgain the ability to search for listings by their title.
 
+---
+
 ## Stripe
 
 - Stripe is an online payments platform which I chose to implement SynthGain with in order to provide users a cashless and secure third party service in which they can make transactions. In addition to being a recognized payment platform, Stripe provids a well-documented API for integrating it with Ruby on Rails applications. Stripe claims that 89% of all credit cards have been processed on a Stripe network at some point in addition to the company powering the transactions of household brands including Pinterest, Blue Apron, Under Armour and Lyft. Given Stripes ability to handle 135 + currencies and frequent use between companies which do business internationally, it seems fitting to trust Stripe for this project.  One other reason I chose to implement Stripe was because of their low transaction fees.
+
+---
 
 ## Ultrahook
 
 - SynthGain uses ultrahook to provide a public webhook endpoint to receive realtime information from Stripe. Specifically, Ultrahook is a gem which provides an internet reachable URL from the computer. Ultrahook will then forward the request on to my localhost. After signing up, Ultrahook emailed me an API key which gave me an exclusive namespace, allowing me to create subdomains under my namespace; ensuring the same endpoints upon future reconnections.
 
+---
+
 ## Unsplash
+
+---
 
 # SynthGain's models and their active record associations
 
 Below is a list of *SynthGain's* **central models** and what they represent.
 
+---
+
 ### User
 
 - The User model represents the users of the *SynthGain* app. This includes users who wish to sell or buy listings on the app.
 
+---
 ### User_info
 
 - The User_info model represents the user profile which includes the Users location details.
+
+---
 
 ### Listing
 
 - The Listing model represents the products (in this case synthesizers).
 
+---
+
 ### Feature
 
 - The Feature model represents the features of the Listing. Since a Listing can have many features which can be associated with many listings, a join table was created. This can be seen in the ERD and additionally by the next model included in this list, feature_listing.
 
+---
+
 ### Feature_listing
 
 - See above
+
+---
 
 ### Category
 
 - The Category model represents what category the Listing falls under. This app uses three categories:
 
     - Modular
+
     - Monophonic
+
     - Polyphonic
+
+---
 
 ### Payment
 
 - The Payment model represents the orders/purchases made which are associated with the User and the Listing purchased.
+
+---
 
 ## Rails associations
 
@@ -322,6 +418,8 @@ Below is a list of *SynthGain's* **central models** and what they represent.
 This project uses the first five outlined above.
 - The list below again illustrates the central models to this app but with the addition of their corresponding associations.
 
+---
+
 ### User
 
 - has_many :listings
@@ -337,6 +435,8 @@ This project uses the first five outlined above.
     - In order to implement this relationship, the User_info table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 136: **add_foreign_key "user_infos", "users"**
     - In short, A user will only have one profile and cannot have many profiles associated with their user account.
 
+---
+
 ### User_info
 
 - belongs_to :user
@@ -348,6 +448,8 @@ This project uses the first five outlined above.
 - has_one_attached :picture
 
     - This sets up a one-to-one mapping between records and files in such that each record can have one file (picture) attached to it.
+
+---
 
 ### Listing
 
@@ -366,6 +468,8 @@ This project uses the first five outlined above.
 
     - This has many through association sets up the many-to-many connection between Listing and Features.
 
+---
+
 ### Feature
 
 - has_many :feature_listings
@@ -375,6 +479,8 @@ This project uses the first five outlined above.
 - has_many :listings, through: :feature_listings
 
     - This has many through association sets up the many-to-many connection between Feature and Listings.
+
+---
 
 ### Feature_listing
 
@@ -387,6 +493,8 @@ This project uses the first five outlined above.
 
     - This belongs to Feature association sets up a connection between Feature Listing and the feature model.
 
+---
+
 ### Category
 
 - has_many :listings
@@ -394,6 +502,8 @@ This project uses the first five outlined above.
     - This has many Listings association sets up a connection between Category and Listings.
 
     - In short, a category can be related to many Listings where as a Listing will only have one category.
+
+---
 
 ### Payment
 
@@ -404,6 +514,8 @@ This project uses the first five outlined above.
     - In short, a Payment can be related to many Listings whereas a Listing will only be associated with one Payment.
 - has_one :user
     - The has one user association illustrates that a Payment will only reference one user and not many.
+
+---
 
 # Database relations implemented in SynthGain
 
