@@ -108,6 +108,28 @@ https://github.com/IsaacCavallaro/SynthGain
 - I do not want other users to be able to access my account so I am ensured my items and details are protected.
 - I do not want other users to be able to edit or delete my listings so that I am ensured that my listings are up to date.
 
+
+# SynthGain ERD's
+
+## ERD v1
+
+- Prior to building the application, I designed the first version of an ERD for *SynthGain*:
+
+![ERD version one](app/assets/images/ERD_one.png)
+
+## ERD v2
+
+- While this process of creating ERD v1 was useful in the initial planning and development stages, as the app began to grow, I considered implementing more features. Specifically, I wanted to include a cart feature. This can be seen in the image below:
+
+![ERD version two](app/assets/images/ERD_two.png)
+
+## ERD Final
+
+- Unfortunately, this cart feature was not able to be implemented due to the deadline of producing an MVP fast approaching. In the end, the MVP was the priority and I decided to remove my cart and join tables and simply the ERD and app.
+
+![ERD version two](app/assets/images/ERD_final.png)
+
+
 # Third Party Services
 
 ## Devise:
