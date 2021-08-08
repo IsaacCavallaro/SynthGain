@@ -264,11 +264,11 @@ This project uses the first five outlined above.
 - has_one :user
     - The has one user association illustrates that a Payment will only reference one user and not many.
 
-# Database relations to be implemented in SynthGain
+# Database relations implemented in SynthGain
 
 ## User & Listing
 
-- When looking at the relationship between User and Listing (identified above), it can be seen that:
+- When looking at the relationship between User and Listing, it can be seen that:
     - A User has many Listings.
     - A Listing belongs to a User.
 - This active record association between a User and Listing represents **a one-to-many association.**
@@ -278,3 +278,25 @@ This project uses the first five outlined above.
 - The image below illustrates this relationship clearly and demonstrates that a User **has many** Listings while a Listing **belongs to** one User.
 
 ![User and Listing relationship](app/assets/images/ERD_User_Listing.png)
+
+## User & User_info
+
+- When looking at the relationship between User and User_info, it can be seen that:
+    - A User has one User_info.
+    - User_info belongs to a User and has one attached picture.
+- This active record association between a User and Listing represents a **one-to-one** association.
+
+- The image below illustrates this relationship clearly and demonstrates that a User **has one** User info while the User Info **belongs to** one User.
+
+![User and Listing relationship](app/assets/images/ERD_User_UserInfo.png)
+
+## Listing & Category
+
+- When looking at the relationship between Listing and Category, it can be seen that:
+    - A Listing belongs to Category.
+    - A Category has many Listings.
+- This active record association between a Listing and Category represents a **one-to-many** association.
+- The image below illustrates this relationship clearly and demonstrates that a Listing **belongs to** a Category while a Category **has many** Listings.
+
+![User and Listing relationship](app/assets/images/ERD_Listing_Category.png)
+
