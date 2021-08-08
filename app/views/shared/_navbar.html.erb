@@ -16,10 +16,6 @@
                 <li class="navbar-item mr-5-lg">
                     <%= button_to "Sign Out", destroy_user_session_path, method: "delete", class: "nav-link" %>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="payments/order">🛒</a>
-                    <%= link_to "", payments_orders_path, class: "nav-link" %>
-                </li>
 
             <% elsif user_signed_in? %>
                 <li class="navbar-item mr-5-lg">
