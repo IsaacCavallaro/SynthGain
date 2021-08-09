@@ -5,26 +5,30 @@
 
 [Login Accounts](#login)
 
-[Problem](#problem)
+[Problem](#problem)  
 
-[App Overview](#overview)  
-
-[User Stories](#userstories)  
+[Purpose](#purpose)
 
 [Target Audience](#targetaudience) 
 
-[Tech Stack](#techstack)  
+[Tech Stack](#techstack) 
 
-[Wireframes & Sitemap](#wireframes)  
+[App Screenshots](#screenshots)
+
+[Wireframes](#wireframes)
+
+[User Stories](#userstories)  
 
 [ERD](#erd)  
- 
-[Purpose](#purpose) 
 
 [Third Party Services](#thirdparty)
 
-[App Screenshots](#screenshots)
-  
+[Active record associations](#activerecord)
+
+[Database relations](#databaserelations)
+
+[Project Management](#trello)
+
 
 ---
 <a name="setup"/></a>
@@ -380,6 +384,7 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ---
 
+<a name="activerecord"/></a>
 # SynthGain's models and their active record associations
 
 Below is a list of *SynthGain's* **central models** and what they represent.
@@ -465,6 +470,7 @@ This project uses the first five outlined above.
     - In order to implement this relationship, the User_info table requires the User_id as a foreign key in addition to setting up this association between the models. This can be seen in the projects schema line 136: **add_foreign_key "user_infos", "users"**
     - In short, A user will only have one profile and cannot have many profiles associated with their user account.
 
+
 ---
 
 ### User_info
@@ -547,6 +553,7 @@ This project uses the first five outlined above.
 
 ---
 
+<a name="databaserelations"/></a>
 # Database relations implemented in SynthGain
 
 ### User & Listing
@@ -614,14 +621,6 @@ This project uses the first five outlined above.
 
 ![User and Listing relationship](app/assets/images/ERD_Listing_FeatureListing.png)
 
-
-
-
-# Task allocation for SynthGain
-
-## Link to Trello Board
-
-To see the Trello board click [here](https://trello.com/b/VAERKf1d/synthgain).
 
 # Schema file 
 
@@ -752,6 +751,12 @@ ActiveRecord::Schema.define(version: 2021_08_05_022207) do
   add_foreign_key "user_infos", "users"
 end
 ```
+<a name="trello"/></a>
+# Task allocation for SynthGain
+
+## Link to Trello Board
+
+To see the Trello board click [here](https://trello.com/b/VAERKf1d/synthgain).
 
 ## Trello Board overview
 
