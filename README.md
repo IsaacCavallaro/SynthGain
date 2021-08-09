@@ -124,7 +124,7 @@ https://github.com/IsaacCavallaro/SynthGain
 - After becoming a member of *SynthGain*, users have the ability to easily **create** and **edit** their **user profile** which includes a profile image and their location details.
 
 ---
-
+<a name="targetaudience"/></a>
 ## Target Audience
 
 - Musicians looking for an online environment that is limited to buying and selling vintage synthesizers.
@@ -279,7 +279,7 @@ https://github.com/IsaacCavallaro/SynthGain
 
 - I want to be able to **view** the **profile of the seller** so that I can see whether the seller is trustworthy.
 
-- I want to have a **secure** way to sign up for *SynthGain* ****so that I can be assured my information is safe.
+- I want to have a **secure** way to sign up for *SynthGain* so that I can be assured my information is safe.
 
 ---
 
@@ -332,12 +332,21 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ![ERD version two](app/assets/images/ERD_two.png)
 
-## ERD Final
+## ERD Final (without Active Storage)
 
 - Unfortunately, this cart feature was not able to be implemented due to the deadline of producing an MVP fast approaching. In the end, the MVP was the priority and I decided to remove my cart and join tables and simplify the ERD and app.
 
 ![ERD version two](app/assets/images/ERD_final.png)
 
+## ERD Final (with Active storage)
+
+- This ERD illustrates the same relationships as above only it includes two additional tables:
+
+    - Active_storage_blobs
+
+    - Active_storage_attachments
+
+![ERD version two](app/assets/images/ERD_final_active_storage.png)
 ---
 <a name="thirdparty"/></a>
 # Third Party Services
