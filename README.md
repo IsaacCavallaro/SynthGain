@@ -169,48 +169,46 @@ https://github.com/IsaacCavallaro/SynthGain
 <a name="screenshots"/></a>
 ## SynthGain Screenshots
 
-- All screenshots are taken for the application in production August 8th, via Heroku at: [https://synth-gain.herokuapp.com/](https://synth-gain.herokuapp.com/)
-
 ---
 
 ## Landing Page 
 
-![Sitemap version one](app/assets/images/landingpage.png)
+![Landing Page](app/assets/images/landingpage.png)
 
 ---
 
 ## Buyer Page
 
-![Sitemap version one](app/assets/images/buylistings.png)
+![Buy listing page](app/assets/images/buylistings.png)
 
 ---
 ## Search by Title Keyword Page
 
-![Sitemap version one](app/assets/images/searchtitle.png)
+![Search title](app/assets/images/searchtitle.png)
 
 ---
 
 ## User Profile
 
-![Sitemap version one](app/assets/images/userprofile.png)
+![User Profile](app/assets/images/userprofile.png)
 
 ---
 
 ## Listing Show Page
 
-![Sitemap version one](app/assets/images/listingshow.png)
+![Listing show](app/assets/images/listingshow.png)
 
 ---
 
 ## Seller Profile Page
 
-![Sitemap version one](app/assets/images/sellerprofilepage.png)
+![Seller Profile Page](app/assets/images/sellerprofilepage.png)
 
 ---
 
 ## Create New Listing Page
 
-![Sitemap version one](app/assets/images/createlisting.png)
+![Create Listing](app/assets/images/createlisting.png)
 
 ---
 
@@ -229,6 +227,15 @@ https://github.com/IsaacCavallaro/SynthGain
 ## About page
 
 ![Sitemap version one](app/assets/images/aboutpage.png)
+
+
+## Stripe Payment
+
+![Sitemap version one](app/assets/images/stripepayment.png)
+
+## Payment Receipt
+
+![Sitemap version one](app/assets/images/stripereceipt.png)
 
 ---
 <a name="wireframes"/></a>
@@ -251,8 +258,6 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ## Seller Profile Page
 ![Wireframe seller profile page](app/assets/images/wireframesellerprofilepage.png)
-
-
 
 
 <a name="userstories"/></a>
