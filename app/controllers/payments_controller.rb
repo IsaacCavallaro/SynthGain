@@ -29,22 +29,19 @@ class PaymentsController < ApplicationController
   def success
     listing_id = params[:listingId]
     @listing = Listing.find(listing_id)
-    purchase = Payment.where(listing_id: params[:listingId])
+    @purchase = Payment.find_by_listing_id(params[:listingId])
     p "----------------------------------"
-    p purchase
+    # p purchase
     p @listing
   end
 
   def orders
-    @orders = Payment.all
-    p "---------------orders-------------------"
-    p @orders
-
-  #   @listings = []
-  #   @orders.each do |order|
-  #     @listings << Listing.find(payment.listing_id)
-  #   end
-  # end
+    # @orders = current_user.payments
+    # p "---------------orders-------------------"
+    # p @orders
+    # listing_id = params[:listingId]
+    # @listing = Listing.find(listing_id)
+    # @purchase = Payment.find_by_listing_id(params[:listingId])
   end
 
 end
