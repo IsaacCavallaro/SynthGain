@@ -380,10 +380,6 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ---
 
-## Unsplash
-
----
-
 # SynthGain's models and their active record associations
 
 Below is a list of *SynthGain's* **central models** and what they represent.
@@ -627,6 +623,136 @@ This project uses the first five outlined above.
 
 To see the Trello board click [here](https://trello.com/b/VAERKf1d/synthgain).
 
+# Schema file 
+
+```ruby
+ActiveRecord::Schema.define(version: 2021_08_05_022207) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "feature_listings", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "feature_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feature_id"], name: "index_feature_listings_on_feature_id"
+    t.index ["listing_id"], name: "index_feature_listings_on_listing_id"
+  end
+
+  create_table "features", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "installs", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_installs_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_installs_on_reset_password_token", unique: true
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.float "price"
+    t.boolean "availability"
+    t.integer "condition"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["category_id"], name: "index_listings_on_category_id"
+    t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "payment_intent_id"
+    t.string "receipt_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "listing_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["listing_id"], name: "index_payments_on_listing_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
+  create_table "user_infos", force: :cascade do |t|
+    t.string "country"
+    t.string "city"
+    t.string "street"
+    t.integer "postcode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_user_infos_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "feature_listings", "features"
+  add_foreign_key "feature_listings", "listings"
+  add_foreign_key "listings", "categories"
+  add_foreign_key "listings", "users"
+  add_foreign_key "payments", "listings"
+  add_foreign_key "payments", "users"
+  add_foreign_key "user_infos", "users"
+end
+```
+
 ## Trello Board overview
 
 In order to manage this project effectively, I applied Agile project management concepts which allowed me to approach tasks incrementally. This approach was implemented using a Trello Board, allowing me to visually see the various tasks, their deadline and corresponding priority within completing this project. Upon the release of this project, I prioritised setting up my Trello Board before taking action towards any other areas this project required (wireframes, ERDs, coding etc). By initially limiting myself to planning out how this project will be approached in conjunction with the features of Trello, I could use my time effectively and follow the tasks allocated within my Trello Board. 
@@ -643,7 +769,19 @@ While I believe this system may have been enough to manage this project, I made 
 - Bugs
 - Extra features (optional)
 
-My aim here was to have a list that can easily track any bugs that are introduced over the course of developing the project; allowing me to continue working on the appropriate task with the confidence that such bugs have been noted and can be addressed at a later stage. Overall, my board consisted of six lists with each list carrying cards dedicated to tasks this project requires. These tasks include the documentation, presentation and code elements of this project. In this manner, Trello was used to manage and track all areas of this project. 
+My aim here was to have a list that can easily track any bugs that are introduced over the course of developing the project; allowing me to continue working on the appropriate task with the confidence that such bugs have been noted and can be addressed at a later stage. Overall, my board consisted of six lists with each list carrying cards dedicated to tasks this project requires. These tasks include the documentation, presentation and code elements of this project. In this manner, Trello was used to manage and track all areas of this project.
+
+
+## Trello Screenshots
+![User and Listing relationship](app/assets/images/trellochecklist.png)
+
+--- 
+
+![User and Listing relationship](app/assets/images/trellopage.png)
+
+--- 
+
+![User and Listing relationship](app/assets/images/trellopagetwo.png)
 
 ## Version Control
 
