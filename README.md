@@ -252,12 +252,18 @@ https://github.com/IsaacCavallaro/SynthGain
 
 ----
 
+## Search by title Page
+![Wireframe search title page](app/assets/images/wireframesearchbytitle.png)
+
 ## Listing Show Page
 ![Wireframe listing show page](app/assets/images/wireframelistingshowpage.png)
 
 
 ## Seller Profile Page
 ![Wireframe seller profile page](app/assets/images/wireframesellerprofilepage.png)
+
+## Create New Listing Page
+![Create new listing page](app/assets/images/wireframecreatelisting.png)
 
 
 <a name="userstories"/></a>
