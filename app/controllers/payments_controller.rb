@@ -27,8 +27,13 @@ class PaymentsController < ApplicationController
   end
 
   def success
+    #Store the current listing id into a variable
     listing_id = params[:listingId]
+
+    #Find the Listing that matches the current listing id and store in an instance variable
     @listing = Listing.find(listing_id)
+
+    
     @purchase = Payment.find_by_listing_id(params[:listingId])
     p "----------------------------------"
     # p purchase
