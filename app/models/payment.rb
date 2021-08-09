@@ -1,4 +1,4 @@
 class Payment < ApplicationRecord
   has_many :listings
-  has_one :user
+  belongs_to :user
 end
