@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     def show
+        #Find the user id and store in an instance variable
         @user = User.find(params[:id])
         @user_listings = @user.listings
     end

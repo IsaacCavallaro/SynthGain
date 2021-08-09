@@ -12,7 +12,7 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    #retrieve all listings from the database with eager loading
+    #retrieve all listings from the database and implement eager loading on pictures and categories
     @listings = Listing.all.with_attached_picture.includes(:category)
     p @listings
   end
@@ -52,7 +52,7 @@ class ListingsController < ApplicationController
 
   # GET /listings/new
   def new
-    #initate a new listing
+    #initate a new listing and store in an instance variable
     @listing = Listing.new
   end
 
@@ -102,11 +102,13 @@ class ListingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
+      #Find the id of a Listing object and store in an instance variable
       @listing = Listing.find(params[:id])
     end
 
     # Connect user id with listing
     def set_user_listing
+      #Find the id of a listing associated with the current user and store in an instance variable
       @listing = current_user.listings.find_by_id(params[:id])
       if @listing == nil 
         flash[:alert] = "Access denied"
@@ -115,11 +117,11 @@ class ListingsController < ApplicationController
     end
 
     def setup_form
-      #Get all categories from database
+      #Get all categories from database and store in an instance variable
       @categories = Category.all
-      #Get all conditions keys from database
+      #Get all conditions keys from database and store in an instance variable
       @conditions = Listing.conditions.keys
-      #Get all features from database
+      #Get all features from database and store in an instance variable
       @features = Feature.all
     end
 
