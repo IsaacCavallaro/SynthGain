@@ -21,6 +21,8 @@
 
 [ERD](#erd)  
 
+[High Level Componenets](#HLC)
+
 [Third Party Services](#thirdparty)
 
 [Active record associations](#activerecord)
@@ -165,9 +167,6 @@ https://github.com/IsaacCavallaro/SynthGain
 ## Sitemap v1
 
 ![Sitemap version one](app/assets/images/synth_gain_sitemap_1.png)
-
-
-## Sitemap v2
 
 ---
 <a name="screenshots"/></a>
@@ -347,6 +346,44 @@ https://github.com/IsaacCavallaro/SynthGain
     - Active_storage_attachments
 
 ![ERD version two](app/assets/images/ERD_final_active_storage.png)
+
+---
+<a name="HLC"/></a>
+# Highl Level Components
+
+By using the Rails framework and its accompanying components, SynthGain can have complicated problems simplified. One such high-level-component is the Action Controller; representing the C for Controller within the rails MVC pattern. Specifically, the Action Controller handles the HTTP requests received from the browser and responds to the requests from the routes. Within the Action Controller are classes and methods which instruct the controller what to do with the received HTTP requests. For example, if a user navigates to the buyers page of SynthGain, via the route below:
+
+``` ruby
+get 'buyers/index', to: 'buyers#index', as: 'buyers'
+```
+
+A HTTP request is sent and the buyer controller and the method titled index is actioned.
+
+``` ruby
+
+class BuyersController < ApplicationController
+
+  def index
+  end
+
+```
+
+Any code within the method will as mentioned, instruct the controller what to do with the received HTTP request. With the help of models (which represent M in the MVC pattern), data can be fetched and actioned in the controller. Within this app, the Buyers Controller index action fetches data from the Listing model (see code below):
+
+``` ruby
+class BuyersController < ApplicationController
+  def index
+    #Implementing eager loading to category and pictures 
+    @q = Listing.with_attached_picture.includes(:category).ransack(params[:q])
+    @listings = @q.result
+   
+  end
+
+```
+The controller can then send this data to the views (which represent V in the MVC pattern).  From here the views will render the data to the browser and display the fetched data with accompanying html and embedded ruby. In short, ERB is a convenient method to embed Ruby inside a front-end code document (HTML for example). 
+
+
+
 ---
 <a name="thirdparty"/></a>
 # Third Party Services
@@ -630,6 +667,85 @@ This project uses the first five outlined above.
 
 ![User and Listing relationship](app/assets/images/ERD_Listing_FeatureListing.png)
 
+# Schema design
+
+```table User {
+  id integer [pk, increment]
+  username string
+  password encryptedString
+  email string
+  user_info_id integer [ref: - UserInfo.id]
+}
+
+table UserInfo {
+  id integer [pk, increment]
+  Country string 
+  City string
+  Street string
+  postcode integer
+  image_id file [ref: - Active_storage_blobs.id]
+}
+
+table Listing {
+  id integer [pk, increment]
+  title string
+  description text
+  price float
+  availability boolean
+  synth_condition integer
+  user_id integer [ref: > User.id]
+  category_id integer [ref: > category.id]
+  image_id file [ref: - Active_storage_blobs.id]
+}
+
+table category {
+  id integer [pk, increment]
+  title string
+  description text
+}
+
+
+table Feature {
+  id integer [pk, increment]
+  title string
+}
+
+table FeatureListing {
+  id integer [pk, increment]
+  feature_id int [ref: < Feature.id]
+  listing_id int [ref: < Listing.id]
+}
+
+
+table Payment {
+  id integer [pk, increment]
+  payment_intent_id integer
+  receipt_url string
+  user_id string [ref: - User.id]
+  listing_id string [ref: - Listing.id]
+  }
+  
+table Active_storage_blobs {
+  id integer [pk, increment]
+  key string
+  filename string
+  content_type string
+  metadata text
+  service_name string
+  byte_size bigint
+  checksum string
+}
+
+table Active_storage_attachments {
+  id integer [pk, increment]
+  name string
+  record_type string
+  record_id bigint
+  blob_id bigint [ref: - Active_storage_blobs.id]
+}
+
+```
+
 
 # Schema file 
 
@@ -760,6 +876,8 @@ ActiveRecord::Schema.define(version: 2021_08_05_022207) do
   add_foreign_key "user_infos", "users"
 end
 ```
+
+
 <a name="trello"/></a>
 # Task allocation for SynthGain
 
