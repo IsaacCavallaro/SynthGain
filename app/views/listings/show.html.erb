@@ -1,38 +1,78 @@
-<div class="d-flex justify-content-center">
-  <div class="card mb-3" style="width: 40rem;">
-    <%= image_tag @listing.picture, class: "card-img-top" if @listing.picture.attached? %>
-    <div class="card-body">
-      <h1 class='card-title'><%= @listing.title%></h1>
-      <p class="card-text"> <%= link_to "Seller: #{@listing.user.email}", users_info_show_profile_path(@listing.user.id)%> </p>
-      <p class="card-text">Condition: <%=@listing.condition %></p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      <p><% @listing.features.each do |feature| %>
-          <span class='badge bg-info text-dark'><%=feature.title%></span>
-        <%end%></p>
-      <p class='blockquote mt-2'><%=@listing.description%></p>  
+<section class="content-section">
+  <div class="app-container listing-detail">
+    <div class="listing-detail__media panel">
+      <%= listing_card_image(@listing, css_class: "listing-detail__image") %>
+    </div>
+
+    <div class="listing-detail__content">
+      <div class="panel">
+        <div class="listing-detail__header">
+          <div>
+            <span class="eyebrow"><%= @listing.category.title %></span>
+            <h1><%= @listing.title %></h1>
+          </div>
+          <strong class="listing-detail__price"><%= aud_price(@listing.price) %></strong>
+        </div>
+
+        <div class="listing-detail__meta">
+          <span class="pill"><%= listing_condition_label(@listing) %></span>
+          <% @listing.features.each do |feature| %>
+            <span class="pill pill--muted"><%= feature.title %></span>
+          <% end %>
+        </div>
+
+        <p class="lead"><%= @listing.description %></p>
+
+        <div class="button-row">
+          <%= purchase_cta(@listing, session_id: @session_id) %>
+
+          <% if current_user&.id == @listing.user_id %>
+            <%= link_to "Edit listing", edit_listing_path(@listing), class: "btn btn-outline-dark btn-lg" %>
+            <%= link_to "Delete listing", @listing, method: :delete, data: { confirm: "Delete this listing?" }, class: "btn btn-outline-danger btn-lg" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="panel">
+        <span class="eyebrow">Seller</span>
+        <div class="seller-card">
+          <%= profile_avatar(@listing.user.user_info) %>
+          <div>
+            <h2><%= seller_name(@listing.user) %></h2>
+            <p><%= seller_location(@listing.user.user_info) %></p>
+            <%= link_to "View seller profile", users_info_show_profile_path(@listing.user.id), class: "btn btn-outline-dark" %>
+          </div>
+        </div>
+      </div>
+
+      <% if @related_listings.any? %>
+        <div class="panel">
+          <div class="section-header section-header--compact">
+            <div>
+              <span class="eyebrow">Related listings</span>
+              <h2>More in <%= @listing.category.title %></h2>
+            </div>
+          </div>
+          <div class="listing-grid listing-grid--compact">
+            <% @related_listings.each do |listing| %>
+              <%= render "listing_card", listing: listing %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
-</div>
+</section>
 
-<div class="d-flex justify-content-center">
-<%# Additional logic for render_buy_button is located the in listings_helper method %>
-<%# Don't display buy button if the listing was created by the current user %>
-<p><%= render_buy_button if current_user && current_user.id != @listing.user_id %></p>
-<%# Don't display edit or delete buttons if the listing was NOT created by the current user %>
-  <p><%=link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-warning" if current_user && current_user.id == @listing.user_id%></p>
-  <p><%=link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"} , class: "btn btn-danger mr-3" if current_user && current_user.id == @listing.user_id%></p>
-</div>
-      
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-  document
-    .querySelector("[data-stripe='payment']")
-    .addEventListener("click", () => {
-      const stripe = Stripe(
-        "<%= Rails.application.credentials.dig(:stripe, :public_key) %>"
-      )
-      stripe.redirectToCheckout({
-        sessionId: "<%= @session_id %>"
-      })
+  document.addEventListener("turbolinks:load", () => {
+    const paymentButton = document.querySelector("[data-stripe='payment']")
+    if (!paymentButton) return
+
+    paymentButton.addEventListener("click", () => {
+      const stripe = Stripe(paymentButton.dataset.stripeKey)
+      stripe.redirectToCheckout({ sessionId: paymentButton.dataset.sessionId })
     })
+  })
 </script>

@@ -1,33 +1,29 @@
 class Listing < ApplicationRecord
-
   validates :title, presence: true
-  validates :price, presence: true
-  validates :description, presence: true
-  validates :availability, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :description, presence: true, length: { minimum: 24 }
+  validates :availability, inclusion: { in: [true, false] }
   validates :condition, presence: true
 
   belongs_to :category
-  #Set a listing to relate to one user
   belongs_to :user
   enum condition: { needs_repair: 0, used: 1, like_new: 2 }
   has_many :feature_listings, dependent: :destroy
-  #Separate many to many relationship with joining table feature_listings
   has_many :features, through: :feature_listings
+  has_many :payments, dependent: :destroy
 
-  #Checkboxes 
   accepts_nested_attributes_for :feature_listings
-
-  #Add picture to listing
   has_one_attached :picture
 
-  #data santization
   before_save :remove_whitespace
 
-  private 
+  scope :available, -> { where(availability: true) }
+  scope :recent_first, -> { order(created_at: :desc) }
 
-  # remove any whitespace before saving a listing
+  private
+
   def remove_whitespace
-    self.title = self.title.strip
-    self.description = self.description.strip
+    self.title = title.strip
+    self.description = description.strip
   end
 end

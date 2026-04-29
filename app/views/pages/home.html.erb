@@ -1,9 +1,57 @@
-<section class="bgimage">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-        <p><%= link_to "About SynthGain", pages_about_path, class: "btn btn-primary btn-large" %></p>
+<section class="hero-section">
+  <div class="app-container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Curated analogue marketplace</span>
+      <h1 class="hero-title">Buy and sell vintage synthesizers in a marketplace built for specialists.</h1>
+      <p class="hero-text">
+        SynthGain is for musicians who care about provenance, condition, and community. Browse distinctive gear,
+        connect with knowledgeable sellers, and list instruments with the detail they deserve.
+      </p>
+      <div class="hero-actions">
+        <%= link_to "Browse the marketplace", buyers_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to "How SynthGain works", pages_about_path, class: "btn btn-outline-light btn-lg" %>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>Specialist</strong>
+          <span>Built for synth collectors, producers, and restorers.</span>
+        </div>
+        <div class="hero-stat">
+          <strong>Seller-first</strong>
+          <span>Profiles, condition notes, and feature metadata keep listings credible.</span>
+        </div>
+        <div class="hero-stat">
+          <strong>Secure checkout</strong>
+          <span>Stripe powers payments so the marketplace stays focused on trust and discovery.</span>
+        </div>
       </div>
     </div>
+    <div class="hero-panel">
+      <div class="hero-panel__card">
+        <span class="eyebrow">What you can do</span>
+        <ul class="feature-list">
+          <li>Search by title, category, and seller profile.</li>
+          <li>List gear with condition, features, pricing, and photography.</li>
+          <li>Review sellers before you buy.</li>
+          <li>Keep the experience focused on synth culture rather than general classifieds.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="app-container section-header">
+    <div>
+      <span class="eyebrow">Featured gear</span>
+      <h2>Fresh listings from the community</h2>
+    </div>
+    <%= link_to "See all listings", buyers_path, class: "btn btn-outline-dark" %>
+  </div>
+
+  <div class="app-container listing-grid">
+    <% @featured_listings.each do |listing| %>
+      <%= render "listings/listing_card", listing: listing %>
+    <% end %>
   </div>
 </section>

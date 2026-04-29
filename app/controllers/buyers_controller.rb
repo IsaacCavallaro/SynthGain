@@ -1,17 +1,7 @@
 class BuyersController < ApplicationController
   def index
-    #Implementing eager loading to category and pictures 
-    @q = Listing.with_attached_picture.includes(:category).ransack(params[:q])
-    @listings = @q.result
-   
-  end
-
-  def show
-  end
-
-  def edit
-  end
-
-  def delete
+    @q = Listing.available.with_attached_picture.includes(:category, :features, :user).ransack(params[:q])
+    @listings = @q.result(distinct: true).recent_first
+    @categories = Category.order(:title)
   end
 end

@@ -1,34 +1,37 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "listings/index", type: :view do
-  before(:each) do
+  it "renders marketplace cards for listings" do
+    category = Category.create!(title: "Poly Synth")
+    user = User.create!(email: "seller@example.com", password: "password")
+
     assign(:listings, [
       Listing.create!(
-        title: "Title",
-        description: "MyText",
-        price: 2.5,
-        availability: false,
-        condition: 3,
-        category: nil
+        title: "Roland Juno-60",
+        description: "Serviced vintage polysynth with chorus and stable tuning.",
+        price: 3200,
+        availability: true,
+        condition: :used,
+        category: category,
+        user: user
       ),
       Listing.create!(
-        title: "Title",
-        description: "MyText",
-        price: 2.5,
-        availability: false,
-        condition: 3,
-        category: nil
+        title: "Sequential Prophet-6",
+        description: "Six-voice analog synth in excellent condition with flight case.",
+        price: 4100,
+        availability: true,
+        condition: :like_new,
+        category: category,
+        user: user
       )
     ])
-  end
 
-  it "renders a list of listings" do
+    allow(view).to receive(:user_signed_in?).and_return(false)
+
     render
-    assert_select "tr>td", text: "Title".to_s, count: 2
-    assert_select "tr>td", text: "MyText".to_s, count: 2
-    assert_select "tr>td", text: 2.5.to_s, count: 2
-    assert_select "tr>td", text: false.to_s, count: 2
-    assert_select "tr>td", text: 3.to_s, count: 2
-    assert_select "tr>td", text: nil.to_s, count: 2
+
+    expect(rendered).to include("Explore the latest gear")
+    expect(rendered).to include("Roland Juno-60")
+    expect(rendered).to include("Sequential Prophet-6")
   end
 end

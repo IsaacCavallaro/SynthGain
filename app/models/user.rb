@@ -4,10 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # Set a user to have many listings
-  has_many :listings
-
+  has_many :listings, dependent: :destroy
   has_one :user_info, dependent: :destroy
-
-  has_many :payments
+  has_many :payments, dependent: :destroy
 end

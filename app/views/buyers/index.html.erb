@@ -1,31 +1,32 @@
-<br>
-<%= search_form_for(@q, :url => buyers_path, :method => :get ) do |f| %>
-  <%= f.label :title_cont %>
-  <%= f.search_field :title_cont %>
-  <%= f.submit %>
-<% end %>
+<section class="content-section">
+  <div class="app-container section-header">
+    <div>
+      <span class="eyebrow">Marketplace</span>
+      <h1>Synths for sale</h1>
+      <p class="lead">Search for a title, browse by category, and inspect seller profiles before you buy.</p>
+    </div>
+  </div>
 
-
-
-<h1 class="hero-title text-center">Synths For Sale</h1>
-
-<div class='container'>
-  <div class='row row-cols-sm-1 row-cols-md-2 row-cols-lg-4'>
-    <% @listings.each do |listing| %>
-      <div class='col mb-4'>
-        <div class='card border-dark h-100'>
-          <%= image_tag listing.picture, class: "card-img top thumbnail" if listing.picture.attached?  %>
-          <div class='card-body'>
-            <h5><%= listing.title %></h5>
-            <h6 class='card-subtitle text-muted'>Added <%= time_ago_in_words(listing.created_at) %> ago</h6>
-            <p class='card-text text-secondary text-truncate'><%= listing.description %></p>
-            <div class='d-flex justify-content-between'>
-              <%= link_to "See More", listing_path(listing.id), class: "btn btn-primary" %>
-              <h5>$<%= listing.price %></h5>
-            </div>
-          </div>
-        </div>
+  <div class="app-container panel search-panel">
+    <%= search_form_for(@q, url: buyers_path, method: :get, html: { class: "search-form" }) do |f| %>
+      <div class="search-form__field search-form__field--wide">
+        <%= f.label :title_or_description_cont, "Search listings" %>
+        <%= f.search_field :title_or_description_cont, class: "form-control", placeholder: "Prophet, Juno, Minimoog..." %>
+      </div>
+      <div class="search-form__field">
+        <%= f.label :category_id_eq, "Category" %>
+        <%= f.select :category_id_eq, @categories.map { |category| [category.title, category.id] }, { include_blank: "All categories" }, class: "form-select" %>
+      </div>
+      <div class="search-form__actions">
+        <%= f.submit "Apply filters", class: "btn btn-primary" %>
+        <%= link_to "Reset", buyers_path, class: "btn btn-outline-dark" %>
       </div>
     <% end %>
   </div>
-</div>
+
+  <div class="app-container listing-grid">
+    <% @listings.each do |listing| %>
+      <%= render "listings/listing_card", listing: listing %>
+    <% end %>
+  </div>
+</section>

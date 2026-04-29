@@ -1,127 +1,130 @@
-#Set the categories for the category entity
-categories = ["Polyphonic", "Monophonic", "Modular"]
+categories = [
+  ["Polyphonic", "Layered pads, lush chords, and classic ensemble synth textures."],
+  ["Monophonic", "Lead and bass instruments built for focused analogue character."],
+  ["Modular", "Patchable systems for people who want open-ended sound design."]
+]
 
-#Set the features for the feature entity
-features = ["Weighted Keys", "Arpeggiator", "Vocodor"]
+features = ["Weighted Keys", "Arpeggiator", "Vocoder", "MIDI", "Serviced Recently"]
 
-#Seed database if the category count is 0
-if Category.count == 0
-    #iterate through categories
-    categories.each do |category|
-        #Create a title and description for each category
-        Category.create(title: category, description: "This is a test description")
-        #print to console
-        puts "Created #{category} category"
-    end
+categories.each do |title, description|
+  Category.find_or_create_by!(title: title) do |category|
+    category.description = description
+  end
 end
 
-#Seed database if the feature count is 0
-if Feature.count == 0
-    #iterate through features
-    features.each do |feature|
-        #Create a title for features
-        Feature.create(title: feature)
-        #print to console
-        puts "Created #{feature} feature"
-    end
+features.each do |title|
+  Feature.find_or_create_by!(title: title)
 end
 
-#Seed database with 3 users if the count is 0
-if User.count == 0 
-    ########### Create user 1 ###############
-    User.create!(email: "test@test.com", password: "testing", password_confirmation: "testing")
-    
-    ########### Create user 1 profile ###############
-    userinfo1 = UserInfo.create!(country: "Australia", city: "Brisbane", street: "Zigzag", postcode: "1111", user_id: 1)
-    
-    ########### Create user 1 profile image ###############
-        userinfo1.picture.attach(
-                io: File.open("app/assets/images/user1picture.jpg"),
-                filename: "user1picture.jpg",
-                content_type: "image/jpg")
+users = [
+  {
+    email: "test@test.com",
+    password: "testing",
+    profile: { country: "Australia", city: "Brisbane", street: "Paddington", postcode: "4064", picture: "user1picture.jpg" }
+  },
+  {
+    email: "mrtest@test.com",
+    password: "testing",
+    profile: { country: "Australia", city: "Melbourne", street: "Brunswick East", postcode: "3057", picture: "user2picture.jpg" }
+  },
+  {
+    email: "mrstest@test.com",
+    password: "testing",
+    profile: { country: "Australia", city: "Sydney", street: "Newtown", postcode: "2042", picture: "user3picture.jpg" }
+  }
+]
 
+users.each do |entry|
+  user = User.find_or_create_by!(email: entry[:email]) do |record|
+    record.password = entry[:password]
+    record.password_confirmation = entry[:password]
+  end
 
-    ########### Create user 2 ###############
-    User.create!(email: "mrtest@test.com", password: "testing", password_confirmation: "testing")
-    
-    ########### Create user 2 profile ###############
-    userinfo2 = UserInfo.create!(country: "Australia", city: "Brisbane", street: "Zagzig", postcode: "2222", user_id: 2)
+  user_info = user.user_info || user.build_user_info
+  user_info.assign_attributes(entry[:profile].except(:picture))
+  user_info.save!
 
-    ########### Create user 2 profile image ###############
-    userinfo2.picture.attach(
-        io: File.open("app/assets/images/user2picture.jpg"),
-        filename: "user2picture.jpg",
-        content_type: "image/jpg")
+  next if user_info.picture.attached?
 
-    ########### Create user 3 ###############
-    User.create!(email: "mrstest@test.com", password: "testing", password_confirmation: "testing")
-    
-    ########### Create user 3 profile ###############
-    userinfo2 = UserInfo.create!(country: "Australia", city: "Brisbane", street: "Zoozag", postcode: "3333", user_id: 3)
-
-    ########### Create user 3 profile image ###############
-    userinfo2.picture.attach(
-        io: File.open("app/assets/images/user3picture.jpg"),
-        filename: "user2picture.jpg",
-        content_type: "image/jpg")
-
+  user_info.picture.attach(
+    io: File.open(Rails.root.join("app/assets/images", entry[:profile][:picture])),
+    filename: entry[:profile][:picture],
+    content_type: "image/jpg"
+  )
 end
 
+sample_listings = [
+  {
+    title: "Roland Juno-60",
+    description: "Well-maintained Juno-60 with strong chorus, stable tuning, and excellent cosmetic condition for its age.",
+    price: 3400,
+    condition: :like_new,
+    category: "Polyphonic",
+    user_email: "test@test.com",
+    image: "testsythn1.jpg",
+    feature_titles: ["Arpeggiator", "Serviced Recently"]
+  },
+  {
+    title: "Moog Source",
+    description: "Classic mono synth with a warm ladder filter, responsive controls, and a recent service history.",
+    price: 2900,
+    condition: :used,
+    category: "Monophonic",
+    user_email: "mrtest@test.com",
+    image: "testsythn2.jpg",
+    feature_titles: ["MIDI"]
+  },
+  {
+    title: "Doepfer A-100 Rack",
+    description: "A compact modular starter rig with a practical mix of utility, sequencing, and tonal modules.",
+    price: 1800,
+    condition: :used,
+    category: "Modular",
+    user_email: "mrstest@test.com",
+    image: "testsythn5.jpg",
+    feature_titles: ["Serviced Recently"]
+  }
+]
 
-########### Create listings ###############
+sample_listings.each do |entry|
+  listing = Listing.find_or_initialize_by(title: entry[:title])
+  listing.assign_attributes(
+    description: entry[:description],
+    price: entry[:price],
+    condition: Listing.conditions.fetch(entry[:condition].to_s),
+    category: Category.find_by!(title: entry[:category]),
+    user: User.find_by!(email: entry[:user_email]),
+    availability: true
+  )
+  listing.save!
 
-########### Create listing with user 1 ###############
-listing1 = Listing.create!(
-    title: "Wonder Synth",
-    description: "This synth is truly wonderful",
-    price: 1.00,
-    condition: 1,
-    category_id: 1,
-    user_id: 1,
-    availability: true)
+  entry[:feature_titles].each do |feature_title|
+    listing.features << Feature.find_by!(title: feature_title) unless listing.features.exists?(title: feature_title)
+  end
 
-    listing1.picture.attach(
-        io: File.open("app/assets/images/testsythn1.jpg"),
-        filename: "testsythn1.jpg",
-        content_type: "image/jpg")
+  next if listing.picture.attached?
 
-########### Create listing with user 2 ###############
-listing2 = Listing.create!(
-    title: "Ultra Synth",
-    description: "Ultra synth will bring the ultra to your life",
-    price: 2.00,
-    condition: 1,
-    category_id: 2,
-    user_id: 2,
-    availability: true)
-        
-    listing2.picture.attach(
-        io: File.open("app/assets/images/testsythn2.jpg"),
-        filename: "testsythn2.jpg",
-        content_type: "image/jpg")
+  listing.picture.attach(
+    io: File.open(Rails.root.join("app/assets/images", entry[:image])),
+    filename: entry[:image],
+    content_type: "image/jpg"
+  )
+end
 
-########### Create listing with user 3 ###############
-listing3 = Listing.create!(
-    title: "Silly Synth",
-    description: "A silly synth will go a long way to make your life better",
-    price: 3.00,
-    condition: 1,
-    category_id: 3,
-    user_id: 3,
-    availability: true)
-        
-    listing3.picture.attach(
-        io: File.open("app/assets/images/testsythn5.jpg"),
-        filename: "testsythn5.jpg",
-        content_type: "image/jpg")
+10.times do
+  listing = Listing.create!(
+    title: Faker::Music.instrument,
+    description: Faker::Lorem.paragraph(sentence_count: 2),
+    price: rand(900..4200),
+    category: Category.order("RANDOM()").first,
+    user: User.order("RANDOM()").first,
+    condition: Listing.conditions.keys.sample,
+    availability: true
+  )
 
-########### User Faker to create listings ###############
-10.times do |x|
-    faker = Listing.create!(title: Faker::Drone.name, 
-        description: Faker::Lorem.sentences(number:1),price: (1..100).to_a.sample, category_id: (1..3).to_a.sample, user_id: (1..3).to_a.sample, condition: (1..2).to_a.sample, availability: true)
-    
-        faker.picture.attach(
-            io: File.open("app/assets/images/testsythn3.jpg"),
-            filename: "testsythn3.jpg",
-            content_type: "image/jpg")
+  listing.picture.attach(
+    io: File.open(Rails.root.join("app/assets/images/testsythn3.jpg")),
+    filename: "testsythn3.jpg",
+    content_type: "image/jpg"
+  )
 end

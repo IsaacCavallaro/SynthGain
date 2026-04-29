@@ -1,10 +1,36 @@
-<div class="d-flex justify-content-center">
-  <div class="card mb-3" style="width: 40rem;">
-    <%= image_tag "testsythn1", class: "card-img-top" %>
-    <br>
-    <p>SynthGain is a place for lovers of vintage synthesizers to buy and sell these beautiful instruments.<p>
-    <div class="card-body">
-          <%= link_to "Add Listing", new_listing_path, class: "btn btn-primary btn-lg" %>
+<section class="content-section">
+  <div class="app-container about-layout">
+    <div class="panel">
+      <span class="eyebrow">Why SynthGain exists</span>
+      <h1>A focused marketplace for people who actually care about vintage synthesizers.</h1>
+      <p class="lead">
+        General marketplaces optimise for volume. SynthGain optimises for clarity, trust, and gear that deserves a
+        better sales experience than a generic classifieds page.
+      </p>
+      <p>
+        Buyers need meaningful listing detail. Sellers need a place where rarity, condition, and maintenance history
+        are understood. SynthGain narrows the marketplace to that niche and makes the presentation feel deliberate.
+      </p>
+      <div class="button-row">
+        <%= link_to "Browse the marketplace", buyers_path, class: "btn btn-primary" %>
+        <%= link_to "Create a listing", user_signed_in? ? new_listing_path : new_user_registration_path, class: "btn btn-outline-dark" %>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="panel panel--compact">
+        <h2>What makes it different</h2>
+        <ul class="feature-list">
+          <li>Synth-specific seller profiles and listing context.</li>
+          <li>Structured metadata for category, condition, and key features.</li>
+          <li>Cleaner buyer flow than a generic feed of unrelated music gear.</li>
+        </ul>
+      </div>
+
+      <div class="panel panel--compact">
+        <h2>Built with</h2>
+        <p>Ruby on Rails, PostgreSQL, Bootstrap, Webpacker, Devise, Active Storage, Ransack, and Stripe checkout.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>

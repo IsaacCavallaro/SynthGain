@@ -1,55 +1,53 @@
 class UsersInfoController < ApplicationController
-  # before_action :user_info_params
+  before_action :authenticate_user!, except: [:show]
+  before_action :set_current_user_info, only: [:index, :edit, :update]
 
   def index
-    #Find the current user by id and store in an instance variable
-    @user_info = UserInfo.find_by(user_id:current_user.id)
+    return if @user_info.present?
+
+    redirect_to users_info_new_path(current_user.id), alert: "Complete your seller profile to list gear."
   end
 
   def show
-    # @user_info = UserInfo.find_by(user_id:params[:id])
-    @user_info = UserInfo.find(params[:id])
-    p @user_info
-    p "-------------------------------"
+    @user_info = UserInfo.find_by!(user_id: params[:id])
   end
 
   def new
-    #Initiate new user from database
-    @user_info = UserInfo.new
+    if current_user.user_info.present?
+      redirect_to users_info_path, notice: "Your profile is already set up."
+    else
+      @user_info = current_user.build_user_info
+    end
   end
 
   def create
-    #Find the user by the current users id
-    user = User.find(current_user.id)
+    @user_info = current_user.user_info || current_user.build_user_info
 
-    #Initiate a new UserInfo for the current user
-    user_info = UserInfo.create!(user:user)
-
-    user_info = user_info.update(user_info_params)
-    redirect_to users_info_path
-    p user_info_params
-    p "-------------------------------"
-    p params
+    if @user_info.update(user_info_params)
+      redirect_to users_info_path, notice: "Profile created successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
-    # Find the userinfo by the current users id and store in an instance variable
-    @user_info = UserInfo.find_by(user_id:current_user.id)
   end
 
   def update
-    # Find the userinfo by the current users id and store in an instance variable
-    @user_info = UserInfo.find_by(user_id:current_user.id)
-    p "-------------------------------"
-    p @user_info
-    @user_info = @user_info.update(user_info_params)
-    redirect_to users_info_path
+    if @user_info.update(user_info_params)
+      redirect_to users_info_path, notice: "Profile updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
-  def destroy
-  end
+  private
 
   def user_info_params
     params.require(:user_info).permit(:country, :city, :street, :postcode, :picture)
+  end
+
+  def set_current_user_info
+    @user_info = current_user.user_info
   end
 end

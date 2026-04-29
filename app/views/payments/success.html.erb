@@ -1,10 +1,18 @@
-<h1> Success </h1>
+<section class="content-section">
+  <div class="app-container narrow-shell">
+    <div class="panel text-center">
+      <span class="eyebrow">Payment complete</span>
+      <h1>Purchase successful</h1>
 
-<p> Thanks for purchasing the <%= @listing.title %> </p>
+      <p class="lead">Thanks for purchasing <strong><%= @listing.title %></strong>.</p>
 
-<%= link_to 'See your receipt', @purchase.receipt_url, class: "btn btn-outline-secondary m-1" %> 
-
-<%= link_to 'See your orders', payments_orders_path, class: "btn btn-outline-secondary m-1" %> 
-
-<%= link_to 'Back to Listings', listings_path, class: "btn btn-outline-secondary m-1" %> 
-
+      <div class="button-row button-row--center">
+        <% if @purchase&.receipt_url.present? %>
+          <%= link_to "See your receipt", @purchase.receipt_url, class: "btn btn-outline-dark", target: "_blank", rel: "noreferrer" %>
+        <% end %>
+        <%= link_to "See your orders", payments_orders_path, class: "btn btn-outline-dark" %>
+        <%= link_to "Back to marketplace", buyers_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</section>

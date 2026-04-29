@@ -1,4 +1,6 @@
 class Payment < ApplicationRecord
-  has_many :listings
+  belongs_to :listing
   belongs_to :user
+
+  validates :payment_intent_id, presence: true, uniqueness: true
 end

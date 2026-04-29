@@ -1,74 +1,38 @@
 class ListingsController < ApplicationController
-  #Set before action to authenticate_user before accessing the form
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_listing, only: %i[show edit update destroy]
+  before_action :set_user_listing, only: %i[edit update destroy]
+  before_action :setup_form, only: %i[new create edit update]
 
-  before_action :set_listing, only: %i[ show ]
-
-  #Set before ation to allow signed in users to update, edit and delete listings
-  before_action :set_user_listing, only: [ :update, :edit, :destroy ]
-
-  #Set before action for setup_form private method only for the new and edit actions
-  before_action :setup_form, only: [:new, :edit]
-
-  # GET /listings or /listings.json
   def index
-    #retrieve all listings from the database and implement eager loading on pictures and categories
-    @listings = Listing.all.with_attached_picture.includes(:category)
-    p @listings
+    @listings = Listing.with_attached_picture.includes(:category, :features, :user).recent_first
   end
 
-  # GET /listings/1 or /listings/1.json
   def show
-    stripe_session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      client_reference_id: current_user ? current_user.id : nil,
-      customer_email: current_user ? current_user.email : nil,
+    @related_listings = Listing.available
+      .where(category_id: @listing.category_id)
+      .where.not(id: @listing.id)
+      .with_attached_picture
+      .includes(:category, :user)
+      .recent_first
+      .limit(3)
 
-      line_items: [{
-        price_data: {
-          unit_amount: @listing.price.to_i * 100,
-          currency: 'aud',
-          product_data: {
-            name: @listing.title,
-            description: @listing.description
-          },
-        },
-        quantity: 1
-      }],
-      payment_intent_data: {
-        metadata: {
-          listing_id: @listing.id,
-          user_id: current_user ? current_user.id : nil
-        }
-      },
-      mode: 'payment',
-      success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
-      cancel_url: "#{root_url}listings"
-    )
-
-    @session_id = stripe_session.id
-    pp stripe_session
+    @session_id = build_checkout_session_id if purchase_available?
   end
 
-  # GET /listings/new
   def new
-    #initate a new listing and store in an instance variable
     @listing = Listing.new
   end
 
-  # GET /listings/1/edit
   def edit
   end
 
-  # POST /listings or /listings.json
   def create
-
-    # Associate user id with creating a listing 
     @listing = current_user.listings.new(listing_params)
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to @listing, notice: "Listing was successfully created." }
+        format.html { redirect_to @listing, notice: "Listing created successfully." }
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -77,11 +41,10 @@ class ListingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /listings/1 or /listings/1.json
   def update
     respond_to do |format|
       if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: "Listing was successfully updated." }
+        format.html { redirect_to @listing, notice: "Listing updated successfully." }
         format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -90,43 +53,93 @@ class ListingsController < ApplicationController
     end
   end
 
-  # DELETE /listings/1 or /listings/1.json
   def destroy
     @listing.destroy
+
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: "Listing was successfully destroyed." }
+      format.html { redirect_to listings_url, notice: "Listing deleted." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_listing
-      #Find the id of a Listing object and store in an instance variable
-      @listing = Listing.find(params[:id])
-    end
+  def set_listing
+    @listing = Listing.find(params[:id])
+  end
 
-    # Connect user id with listing
-    def set_user_listing
-      #Find the id of a listing associated with the current user and store in an instance variable
-      @listing = current_user.listings.find_by_id(params[:id])
-      if @listing == nil 
-        flash[:alert] = "Access denied"
-        redirect_to listings_path
-      end
-    end
+  def set_user_listing
+    @listing = current_user.listings.find_by(id: params[:id])
+    return if @listing.present?
 
-    def setup_form
-      #Get all categories from database and store in an instance variable
-      @categories = Category.all
-      #Get all conditions keys from database and store in an instance variable
-      @conditions = Listing.conditions.keys
-      #Get all features from database and store in an instance variable
-      @features = Feature.all
-    end
+    redirect_to listings_path, alert: "You do not have access to edit that listing."
+  end
 
-    # Only allow a list of trusted parameters through.
-    def listing_params
-      params.require(:listing).permit(:title, :picture, :description, :price, :availability, :condition, :category_id, feature_ids: [])
-    end
+  def setup_form
+    @categories = Category.order(:title)
+    @conditions = Listing.conditions.keys
+    @features = Feature.order(:title)
+  end
+
+  def listing_params
+    params.require(:listing).permit(
+      :title,
+      :picture,
+      :description,
+      :price,
+      :availability,
+      :condition,
+      :category_id,
+      feature_ids: []
+    )
+  end
+
+  def purchase_available?
+    current_user.present? &&
+      current_user.id != @listing.user_id &&
+      stripe_public_key.present? &&
+      stripe_secret_key.present?
+  end
+
+  def stripe_public_key
+    Rails.application.credentials.dig(:stripe, :public_key)
+  end
+
+  def stripe_secret_key
+    Rails.application.credentials.dig(:stripe, :secret_key)
+  end
+
+  def build_checkout_session_id
+    stripe_session = Stripe::Checkout::Session.create(
+      payment_method_types: ["card"],
+      client_reference_id: current_user.id,
+      customer_email: current_user.email,
+      line_items: [
+        {
+          price_data: {
+            unit_amount: (@listing.price * 100).to_i,
+            currency: "aud",
+            product_data: {
+              name: @listing.title,
+              description: @listing.description
+            }
+          },
+          quantity: 1
+        }
+      ],
+      payment_intent_data: {
+        metadata: {
+          listing_id: @listing.id,
+          user_id: current_user.id
+        }
+      },
+      mode: "payment",
+      success_url: payments_success_url(listingId: @listing.id),
+      cancel_url: listing_url(@listing)
+    )
+
+    stripe_session.id
+  rescue Stripe::StripeError => e
+    Rails.logger.error("Unable to create Stripe checkout session for listing #{@listing.id}: #{e.message}")
+    nil
+  end
 end

@@ -1,85 +1,80 @@
-<%= form_with(model: listing) do |form| %>
+<%= form_with(model: listing, local: true, html: { class: "panel form-panel" }) do |form| %>
   <% if listing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
-
+    <div class="form-errors">
+      <h2><%= pluralize(listing.errors.count, "error") %> prevented this listing from being saved:</h2>
       <ul>
         <% listing.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
-
   <% end %>
-<div class="d-flex justify-content-center">
-  <div class="card mb-3" style="width: 50rem;">
-    <div class="field">
-      <%# Add bootstrap class to forms%>
-      <%= form.label :title, class: "form-label mr-1" %> 
-      <%= form.text_field :title, class: "form-control" %>
-    </div>
 
-    <div class="field">
-      <%# Add bootstrap class to forms%>
-      <%= form.label :description, class: "form-label mr-1" %>
-      <%= form.text_area :description, class: "form-control" %>
-    </div>
+  <div class="form-panel__header">
+    <span class="eyebrow">Seller workspace</span>
+    <h1><%= listing.persisted? ? "Edit listing" : "Create a listing" %></h1>
+    <p>Present the synth clearly so buyers can understand the instrument, its condition, and the asking price at a glance.</p>
+  </div>
 
+  <div class="form-grid">
     <div class="field">
-      <%# Add bootstrap class to forms%>
-      <%= form.label :price, class: "form-label mr-1" %>
-      <%= form.text_field :price, class: "form-control" %>
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-control", placeholder: "Roland Juno-60" %>
     </div>
 
     <div class="field">
-      <%# Add bootstrap class to forms%>
-      <%= form.label :availability, class: "form-label mr-1" %>
-      <%= form.radio_button :availability, class: "form-control" %>
-    </div>
-
-    <%# Add bootstrap class with margin bottom of 3 %>
-    <h5 class=mb-3>Condition</h5>
-    <%# Add bootstrap class to make the form inline with margin bottom of 3 %>
-    <div class="form-check form-check-line mb-3">
-    <%# iterate through conditions %>
-      <% @conditions.each do |option| %>
-    <%# Add bootstrap class with margin right of 2 %>
-        <%= form.radio_button :condition, option, class: "mr-2" %>
-    <%# Add bootstrap class with margin right of 3 %>
-        <%= form.label :condition, option, class: "form-label mr-3" %>
-      <% end%>
+      <%= form.label :category_id, "Category", class: "form-label" %>
+      <%= form.select :category_id, @categories.map { |category| [category.title, category.id] }, {}, class: "form-select" %>
     </div>
 
     <div class="field">
-      <%= form.label :category_id %>
-      <%# Map through @categories and output an array %>
-      <%= form.select :category_id, @categories.map {|category| [category.title, category.id]} %>
+      <%= form.label :price, class: "form-label" %>
+      <%= form.number_field :price, class: "form-control", min: 1, step: 1, placeholder: "2400" %>
     </div>
 
-    <h5>Features</h5>
-    <%# Add bootstrap class to make the form inline %>
-    <div class="form-check form-check-line">
-      <%= form.collection_check_boxes :feature_ids, features, :id, :title do |feature| %>
-        <%= feature.label(class: "form-check-label") %>
-        <%= feature.check_box(class: "form-check mr-2") %>
-      <% end %>
-    </div>
-
-    <h5 class='mb-3'>Picture</h5>
-    <div class='form-group mb-3'>
-      <%= form.label :picture, class: 'form-label' %>
-      <%= form.file_field :picture, accepts: "image/png,image/jpg,image/jpeg", class: 'form-control-file' %>
-      <br />
-      <small class='form-text text-muted'>PNG, JPG and JPEG only</small>
-    </div>
-
-    <div class="actions">
-      <%= form.submit %>
+    <div class="field">
+      <%= form.label :availability, class: "form-label" %>
+      <%= form.select :availability, [["Available", true], ["Not available", false]], {}, class: "form-select" %>
     </div>
   </div>
-</div>
-<div class="d-flex justify-content-center">
-  <%= link_to 'Back', listings_path %>
-</div>
-<% end %>
 
+  <div class="field">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 6, placeholder: "Describe the synth, service history, modifications, and what a buyer should know." %>
+  </div>
+
+  <div class="field">
+    <label class="form-label">Condition</label>
+    <div class="option-grid">
+      <% @conditions.each do |option| %>
+        <label class="option-card">
+          <%= form.radio_button :condition, option %>
+          <span><%= option.humanize %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="form-label">Features</label>
+    <div class="option-grid option-grid--checks">
+      <%= form.collection_check_boxes :feature_ids, @features, :id, :title do |feature| %>
+        <label class="option-card option-card--check">
+          <%= feature.check_box %>
+          <span><%= feature.text %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :picture, class: "form-label" %>
+    <%= form.file_field :picture, accepts: "image/png,image/jpg,image/jpeg", class: "form-control" %>
+    <small class="form-text text-muted">Use a clear JPG or PNG with the synth centered and well lit.</small>
+  </div>
+
+  <div class="button-row">
+    <%= form.submit listing.persisted? ? "Update listing" : "Publish listing", class: "btn btn-primary btn-lg" %>
+    <%= link_to "Back", listings_path, class: "btn btn-outline-dark btn-lg" %>
+  </div>
+<% end %>

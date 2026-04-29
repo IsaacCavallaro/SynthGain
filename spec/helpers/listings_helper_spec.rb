@@ -1,15 +1,44 @@
-require 'rails_helper'
+require "rails_helper"
 
-# Specs in this file have access to a helper object that includes
-# the ListingsHelper. For example:
-#
-# describe ListingsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ListingsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:category) { Category.create!(title: "Poly Synth") }
+  let(:seller) { User.create!(email: "seller@example.com", password: "password") }
+  let(:buyer) { User.create!(email: "buyer@example.com", password: "password") }
+  let(:listing) do
+    Listing.create!(
+      title: "Roland Juno-60",
+      description: "Serviced vintage polysynth with chorus and stable tuning.",
+      price: 3200,
+      availability: true,
+      condition: :used,
+      category: category,
+      user: seller
+    )
+  end
+
+  it "asks guests to sign in before purchasing" do
+    allow(helper).to receive(:current_user).and_return(nil)
+
+    expect(helper.purchase_cta(listing)).to include("Sign in to buy")
+  end
+
+  it "shows ownership state for the seller" do
+    allow(helper).to receive(:current_user).and_return(seller)
+
+    expect(helper.purchase_cta(listing)).to include("This is your listing")
+  end
+
+  it "prompts buyers to complete their seller profile" do
+    allow(helper).to receive(:current_user).and_return(buyer)
+    helper.define_singleton_method(:profile_complete?) { false }
+
+    expect(helper.purchase_cta(listing)).to include("Complete seller profile to buy")
+  end
+
+  it "shows a Stripe fallback message when checkout is unavailable" do
+    allow(helper).to receive(:current_user).and_return(buyer)
+    helper.define_singleton_method(:profile_complete?) { true }
+
+    expect(helper.purchase_cta(listing)).to include("Stripe checkout is unavailable in this environment.")
+  end
 end

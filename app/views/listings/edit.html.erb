@@ -1,7 +1,5 @@
-<h1>Editing Listing</h1>
-
-<%# Set local variables as instance variables to render in form  %>
-<%= render 'form', listing: @listing, categories: @categories, conditions: @conditions, features: @features%>
-
-<%= link_to 'Show', @listing %> |
-<%= link_to 'Back', listings_path %>
+<section class="content-section">
+  <div class="app-container form-shell">
+    <%= render "form", listing: @listing %>
+  </div>
+</section>

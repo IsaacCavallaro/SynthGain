@@ -1,0 +1,26 @@
+<article class="listing-card">
+  <%= link_to listing_path(listing), class: "listing-card__image-link" do %>
+    <%= listing_card_image(listing) %>
+  <% end %>
+
+  <div class="listing-card__body">
+    <div class="listing-card__meta">
+      <span class="pill"><%= listing.category.title %></span>
+      <span class="pill pill--muted"><%= listing_condition_label(listing) %></span>
+    </div>
+
+    <h3 class="listing-card__title">
+      <%= link_to listing.title, listing_path(listing), class: "listing-card__title-link" %>
+    </h3>
+
+    <p class="listing-card__description"><%= truncate(listing.description, length: 120) %></p>
+
+    <div class="listing-card__footer">
+      <div>
+        <strong class="listing-card__price"><%= aud_price(listing.price) %></strong>
+        <small class="listing-card__timestamp">Listed <%= time_ago_in_words(listing.created_at) %> ago</small>
+      </div>
+      <%= link_to "View listing", listing_path(listing), class: "btn btn-outline-dark btn-sm" %>
+    </div>
+  </div>
+</article>

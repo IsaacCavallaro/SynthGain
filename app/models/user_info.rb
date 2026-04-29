@@ -1,6 +1,7 @@
 class UserInfo < ApplicationRecord
-    belongs_to :user
+  belongs_to :user
 
-     #Add picture to user profile
-    has_one_attached :picture
+  has_one_attached :picture
+
+  validates :country, :city, :street, :postcode, presence: true
 end

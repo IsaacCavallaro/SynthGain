@@ -1,53 +1,51 @@
-<nav class="navbar navbar-expand sticky-top navbar-light bg-light">
-    <div class="container-fluid">
-        <%= link_to "SynthGain", root_path, class: "navbar-brand" %>
-        <ul class="navbar-nav">
+<nav class="navbar navbar-expand-lg navbar-dark app-navbar sticky-top">
+  <div class="container-fluid app-container">
+    <%= link_to root_path, class: "navbar-brand brand-lockup" do %>
+      <span class="brand-mark">SG</span>
+      <span>
+        <span class="brand-name">SynthGain</span>
+        <small class="brand-tagline">Vintage synth marketplace</small>
+      </span>
+    <% end %>
 
-            <% if user_signed_in? && current_user.user_info %>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Buy", buyers_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Sell", new_listing_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Profile", users_info_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= button_to "Sign Out", destroy_user_session_path, method: "delete", class: "nav-link" %>
-                </li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-nav" aria-controls="app-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-            <% elsif user_signed_in? %>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Buy", buyers_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Sell", users_info_create_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= button_to "Sign Out", destroy_user_session_path, method: "delete", class: "nav-link" %>
-                </li>
-            <% else %>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Buy", buyers_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Sell", new_user_registration_path, class: "nav-link" %>
-                </li>
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
-                </li>
+    <div class="collapse navbar-collapse justify-content-end" id="app-nav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-2">
+        <li class="nav-item">
+          <%= link_to "Marketplace", buyers_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "About", pages_about_path, class: "nav-link" %>
+        </li>
 
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "Sign in", user_session_path, class: "nav-link" %>
-                </li>
-
-                <li class="navbar-item mr-5-lg">
-                    <%= link_to "About", pages_about_path, class: "nav-link" %>
-                </li>
-
-            <% end %>
-        </ul>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Listings", listings_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sell", profile_complete? ? new_listing_path : users_info_new_path(current_user.id), class: "nav-link nav-link--cta" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Profile", users_info_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Orders", payments_orders_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item nav-item--button">
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Create account", new_user_registration_path, class: "btn btn-primary btn-sm" %>
+          </li>
+        <% end %>
+      </ul>
     </div>
+  </div>
 </nav>
-
